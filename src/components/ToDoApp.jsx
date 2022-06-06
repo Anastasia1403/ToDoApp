@@ -1,51 +1,70 @@
-import React, {useState} from 'react';
-import Form from "./Form";
+import React, { useState } from 'react';
+import Sidebar from './Sidebar/Sidebar';
+import TaskDetails from './TaskDetails';
 import ToDoList from "./ToDoList";
+import styled from 'styled-components'
 
-const ToDoApp = function () {
-    const [toDoArray, setToDoArray] = useState([]);
+const MainBlock = styled.main`
+    display: flex;
+    gap: 80px;
+    padding: 160px 80px;`
 
-    function handleAddToDo(todo) {
+const testTask = {
+    id: 1,
+    content: 'go to art store',
+    note: 'buy colored pencils, paper, watercolor',
+    tags: ['hobby' ],
+    isCompleted: false, 
+}
+
+const defaultTagsArray = [
+    {title: "family", color: "#df6575"},
+    {title: "work", color: "#fab655"},
+    {title: "homework", color: "#435675"},
+    {title: "hobby", color: "#4596c5"},
+]
+
+const ToDoApp = () => {
+    const [toDoArray, setToDoArray] = useState([ testTask ]);
+    const [currentToDo, setCurrentToDo] = useState({});
+
+    const [tagsTypes, setTagsTypes] = useState(defaultTagsArray);
+
+    function onChangeCurrentToDo(id) {
+        console.log(id)
+        setCurrentToDo(toDoArray.filter(todo => todo.id === id))
+    }
+    
+    function addToDo(todo, note, tags) {
         const currentArray = [...toDoArray];
         currentArray.push({
             id: Date.now(),
             content: todo,
-            isCompleted: false
+            note,
+            tags,
+            isCompleted: false,
         });
         setToDoArray(currentArray);
     }
 
     function deleteToDo(id) {
-        const newArray = [...toDoArray];
-        newArray.forEach((item, index) => {
-                if (item.id === id) {
-                    newArray.splice(index, 1)
-                }
-            }
-        );
-        setToDoArray(newArray);
+        setToDoArray(toDoArray.filter(item => item.id !== id));
     }
 
     function editToDo(id) {
         const newArray = [...toDoArray];
-        newArray.forEach((item) => {
-                if (item.id === id) {
-                    item.isCompleted = !item.isCompleted
-                }
-            }
-        );
+        const index = newArray.findIndex((item) => item.id === id);
+        newArray[index].isCompleted = !newArray[index].isCompleted;
         setToDoArray(newArray);
     }
 
     return (
         <>
-            <Form handleAddToDo={handleAddToDo}/>
-            {toDoArray.length ?
-                <ToDoList deleteToDo={deleteToDo}
-                          editToDo={editToDo}
-                          toDoArray={toDoArray}/>
-                : <p>What do you want to do?</p>
-            }
+        <Sidebar tagsTypes={tagsTypes}/>
+        <MainBlock>
+            <ToDoList onChangeCurrentToDo={onChangeCurrentToDo} tagsTypes={tagsTypes} addToDo={addToDo} deleteToDo={deleteToDo} editToDo={editToDo} toDoArray={toDoArray}/>
+            <TaskDetails currentToDo={currentToDo}/>
+        </MainBlock>
         </>
     )
 };
