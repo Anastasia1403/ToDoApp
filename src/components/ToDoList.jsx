@@ -1,19 +1,45 @@
-import React from 'react';
-import ToDoItem from "./ToDoItem";
+import React, {useState} from 'react';
+import ToDoItem from "./ToDoItem/ToDoItem";
+import CreateNewTaskPopup from "./CreateNewTaskPopup/CreateNewTaskPopup";
+import { StyledSection } from "../shared/StyledSection";
 
-const ToDoList = function ({ editToDo, deleteToDo, toDoArray }) {
+const ToDoList = ({ addToDo, editToDo, deleteToDo, onChangeCurrentToDo, toDoArray }) => {
+
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal (e) {
+        e.preventDefault()
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
     return (
-        <ul>
-            {toDoArray.map((todo) => {
-                return <ToDoItem
-                    editToDo={editToDo}
-                    deleteToDo={deleteToDo}
-                    isCompleted={todo.isCompleted}
-                    id={todo.id}
-                    key={todo.id}
-                    content={todo.content}/>
-            })}
-        </ul>
+        <StyledSection>
+            { toDoArray.length ?
+                <ul>
+                    {toDoArray.map((todo) => {
+                        return <ToDoItem
+                            onChangeCurrentToDo={onChangeCurrentToDo}
+                            editToDo={editToDo}
+                            deleteToDo={deleteToDo}
+                            isCompleted={todo.isCompleted}
+                            id={todo.id}
+                            tags={todo.tags}
+                            key={todo.id}
+                            todo={todo.content}
+                            />
+                    })}
+                </ul>
+            : <p>What do you want to do?</p> }
+            <button onClick= {openModal}>Create New Task</button>
+            <CreateNewTaskPopup
+                addToDo={addToDo}
+                closeModal={closeModal}
+                modalIsOpen={modalIsOpen}
+            />
+        </StyledSection>
     )
 };
 
