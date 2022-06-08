@@ -35,6 +35,11 @@ export const TagsList = styled.ul`
     flex-wrap: wrap;
     gap: 12px;`
 
+export const TagCheckbox = styled.input`
+    display: none;`
+
+export const TagCheckboxLabel = styled.label`
+    color: ${(props) => props.checked ? '#ffffff': props.color}`
 export const customStyles = {
     content: {
         top: '50%',

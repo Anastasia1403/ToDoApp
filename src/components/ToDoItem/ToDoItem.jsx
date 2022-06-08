@@ -1,12 +1,12 @@
 import React from 'react';
+import TagItem from '../TagItem/TagItem';
+import { defaultTagsArray } from "./../../helpers/constants";
 import { StyledToDoItem,
         ToDoContent,
-        TagMarker,
-        Tooltip,
         TagMarkersList,
         DeleteButton } from './styled'
 
-const ToDoItem = ({ editToDo, todo, isCompleted, deleteToDo, id, tagsTypes, tags, onChangeCurrentToDo }) => {
+const ToDoItem = ({ editToDo, todo, isCompleted, deleteToDo, id, tags, onChangeCurrentToDo }) => {
     function handleDelete() {
         deleteToDo(id)
     }
@@ -20,20 +20,20 @@ const ToDoItem = ({ editToDo, todo, isCompleted, deleteToDo, id, tagsTypes, tags
     return (
         <StyledToDoItem onClick={handleChangeCurrentToDo}>
             <div>
-                <ToDoContent 
+                <ToDoContent
                     isCompleted={isCompleted}
                     onClick={handleEdit}
                 >
                     {todo}
                 </ToDoContent>
                 <TagMarkersList>
-                    {tags.map(tag => 
-                        <TagMarker 
-                            key={tag} 
-                            color={tagsTypes.find(tagType => tagType.title === tag).color}
-                        >
-                            <Tooltip>{tag}</Tooltip>
-                        </TagMarker>
+                    {tags.map(tag =>
+                    <TagItem 
+                        size='small'
+                        key={tag}
+                        color={defaultTagsArray.find(tagType => tagType.title === tag).color}
+                        title={tag}
+                    >{tag}</TagItem>
                     )}
                 </TagMarkersList>
             </div>

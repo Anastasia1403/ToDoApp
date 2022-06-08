@@ -2,39 +2,28 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar/Sidebar';
 import TaskDetails from './TaskDetails';
 import ToDoList from "./ToDoList";
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { testTask } from "./../helpers/constants";
 
-const MainBlock = styled.main`
+
+export const MainBlock = styled.main`
     display: flex;
     gap: 80px;
     padding: 160px 80px;`
 
-const testTask = {
-    id: 1,
-    content: 'go to art store',
-    note: 'buy colored pencils, paper, watercolor',
-    tags: ['hobby' ],
-    isCompleted: false, 
-}
 
-const defaultTagsArray = [
-    {title: "family", color: "#df6575"},
-    {title: "work", color: "#fab655"},
-    {title: "homework", color: "#435675"},
-    {title: "hobby", color: "#4596c5"},
-]
 
 const ToDoApp = () => {
     const [toDoArray, setToDoArray] = useState([ testTask ]);
     const [currentToDo, setCurrentToDo] = useState({});
 
-    const [tagsTypes, setTagsTypes] = useState(defaultTagsArray);
+//     const [tagsTypes, setTagsTypes] = useState(defaultTagsArray);
 
     function onChangeCurrentToDo(id) {
         console.log(id)
-        setCurrentToDo(toDoArray.filter(todo => todo.id === id))
+        setCurrentToDo(toDoArray.find(todo => todo.id === id))
     }
-    
+
     function addToDo(todo, note, tags) {
         const currentArray = [...toDoArray];
         currentArray.push({
@@ -60,9 +49,9 @@ const ToDoApp = () => {
 
     return (
         <>
-        <Sidebar tagsTypes={tagsTypes}/>
+        <Sidebar/>
         <MainBlock>
-            <ToDoList onChangeCurrentToDo={onChangeCurrentToDo} tagsTypes={tagsTypes} addToDo={addToDo} deleteToDo={deleteToDo} editToDo={editToDo} toDoArray={toDoArray}/>
+            <ToDoList onChangeCurrentToDo={onChangeCurrentToDo} addToDo={addToDo} deleteToDo={deleteToDo} editToDo={editToDo} toDoArray={toDoArray}/>
             <TaskDetails currentToDo={currentToDo}/>
         </MainBlock>
         </>
