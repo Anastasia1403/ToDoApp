@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 export const StyledSidebar = styled.aside`
     background-color: #ffffff;
-    padding: 12px;` 
+    padding: 24px 12px;` 
 
 export const TagsList = styled.ul`
-    margin: 12px;
+    margin: 12px 12px 36px;
     display: flex;
     flex-direction: column;
     gap: 12px;`

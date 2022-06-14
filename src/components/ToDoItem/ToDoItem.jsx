@@ -1,43 +1,44 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTodoAction, toggleTodoAction } from '../../store/todos/action';
 import TagItem from '../TagItem/TagItem';
-import { defaultTagsArray } from "./../../helpers/constants";
+// import { defaultTagsArray } from "./../../helpers/constants";
 import { StyledToDoItem,
         ToDoContent,
         TagMarkersList,
         DeleteButton } from './styled'
 
-const ToDoItem = ({ editToDo, todo, isCompleted, deleteToDo, id, tags, onChangeCurrentToDo }) => {
-    function handleDelete() {
-        deleteToDo(id)
-    }
-    function handleEdit() {
-        editToDo(id)
-    }
-    function handleChangeCurrentToDo() {
+const ToDoItem = ({ todo, isCompleted, id, tags, onChangeCurrentToDo, currentToDoId }) => {
+    const tagsList = useSelector(state => state.tags)
+
+    const dispatch = useDispatch()
+    function handleChangeCurrentToDo(id) {
         onChangeCurrentToDo(id)
     }
 
     return (
-        <StyledToDoItem onClick={handleChangeCurrentToDo}>
+        <StyledToDoItem isCurrent={currentToDoId === id} onClick={() => handleChangeCurrentToDo(id)}>
             <div>
                 <ToDoContent
                     isCompleted={isCompleted}
-                    onClick={handleEdit}
+                    onClick={() => dispatch(toggleTodoAction(id))}
                 >
+                    <input checked={isCompleted} type="checkbox"/>
                     {todo}
                 </ToDoContent>
                 <TagMarkersList>
-                    {tags.map(tag =>
+                    {tags.map(tagId =>
                     <TagItem 
                         size='small'
-                        key={tag}
-                        color={defaultTagsArray.find(tagType => tagType.title === tag).color}
-                        title={tag}
-                    >{tag}</TagItem>
+                        key={tagId}
+                        color={tagsList[tagId].color}
+                    >
+                        {tagsList[tagId].title}
+                    </TagItem>
                     )}
                 </TagMarkersList>
             </div>
-            <DeleteButton onClick={handleDelete}>✖</DeleteButton>
+            <DeleteButton onClick={() => dispatch(deleteTodoAction(id))}>✖</DeleteButton>
         </StyledToDoItem>
     )
 };

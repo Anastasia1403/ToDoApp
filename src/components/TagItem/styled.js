@@ -6,5 +6,7 @@ export const StyledTagItem = styled.li`
     padding: ${props => props.size === 'small' ? '0 4px' : '4px 12px'};
     border-radius: ${props => props.size === 'small' ? '4px' : '12px'};
     max-width: ${props => props.size === 'small' ? '80px' : '150px' };
-    font-size: ${props => props.size === 'small' ? '10px' : '16px' }
+    font-size: ${props => props.size === 'small' ? '10px' : '16px' };
+    color: #ffffff;
+    list-style-type: none;
     `

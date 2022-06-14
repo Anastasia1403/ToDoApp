@@ -8,6 +8,7 @@ export const StyledToDoItem = styled.li`
     padding: 8px;
     text-decoration: ${(props) => (props.isCompleted ? 'line-through' : 'none')};
     border-radius: 4px;
+    background-color: ${props => props.isCurrent ? '#ecddf1' : 'transparent'};
     &:hover {
         background-color: #ecddf1;
     }`
@@ -15,7 +16,10 @@ export const StyledToDoItem = styled.li`
 export const ToDoContent = styled.div`
     cursor: pointer;
     text-decoration: ${(props) => (props.isCompleted ? 'line-through' : 'none')};
-    text-align: start;`
+    text-align: start;
+    display: flex;
+    align-items: center;
+    gap: 16px;`
 
 
 export const TagMarker = styled.div`
