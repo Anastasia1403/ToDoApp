@@ -8,9 +8,10 @@ export const StyledToDoItem = styled.li`
     padding: 8px;
     text-decoration: ${(props) => (props.isCompleted ? 'line-through' : 'none')};
     border-radius: 4px;
-    background-color: ${props => props.isCurrent ? '#ecddf1' : 'transparent'};
+    cursor: pointer;
+    background-color: ${props => props.isActive ? '#caa0d8' : 'transparent'};
     &:hover {
-        background-color: #ecddf1;
+        background-color: ${props => props.isActive ? '#caa0d8' : '#ecddf1'};
     }`
 
 export const ToDoContent = styled.div`
@@ -56,4 +57,9 @@ export const DeleteButton = styled.button`
     color: #cd4848;
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+        font-size: 20px;
+    }
     `

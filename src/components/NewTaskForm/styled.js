@@ -16,10 +16,3 @@ export const TagsList = styled.ul`
     display: flex;
     flex-wrap: wrap;
     gap: 12px;`
-
-export const TagCheckbox = styled.input`
-    display: none;`
-
-export const TagCheckboxLabel = styled.label`
-    color: ${(props) => props.checked ? '#ffffff': props.color}`
-    

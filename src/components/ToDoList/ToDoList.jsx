@@ -6,9 +6,10 @@ import Button from '../../shared/Button/Button';
 import CustomModal from '../../shared/CustomModal/CustomModal';
 import NewTaskForm from '../NewTaskForm/NewTaskForm';
 import { EmptyBlock, StyledList } from './styled';
+import { todosSelector } from '../../store/todos/selectors';
 
 const ToDoList = ({ onChangeCurrentToDo, currentToDoId}) => {
-    const todos = useSelector(state => state.todos)
+    const todos = useSelector(todosSelector)
     const [modalIsOpen, setIsOpen] = useState(false);
 
     function openModal (e) {
@@ -25,18 +26,17 @@ const ToDoList = ({ onChangeCurrentToDo, currentToDoId}) => {
                 <StyledList>
                     {(Object.entries(todos)).map(([id, todo]) => {
                         return <ToDoItem
+                            isActive={currentToDoId === id}
                             currentToDoId={currentToDoId}
                             onChangeCurrentToDo={onChangeCurrentToDo}
-                            isCompleted={todo.isCompleted}
                             id={id}
-                            tags={todo.tags}
-                            key={todo.id}
-                            todo={todo.title}
+                            key={id}
+                            todo={todo}
                             />
                     })}
                 </StyledList>
             : <EmptyBlock>What do you want to do?</EmptyBlock> }
-            <Button onClick={openModal} title='Create New Task'/>
+            <Button onClick={openModal}>Create New Task</Button>
             <CustomModal
                 closeModal={closeModal}
                 modalIsOpen={modalIsOpen}

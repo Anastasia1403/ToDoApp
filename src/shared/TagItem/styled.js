@@ -10,3 +10,10 @@ export const StyledTagItem = styled.li`
     color: #ffffff;
     list-style-type: none;
     `
+export const TagCheckbox = styled.input`
+    display: none;`
+
+export const TagCheckboxLabel = styled.label`
+    cursor: pointer;
+    color: ${(props) => props.checked ? '#ffffff': props.color}`
+    

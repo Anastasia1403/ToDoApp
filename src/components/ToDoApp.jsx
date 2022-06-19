@@ -4,6 +4,7 @@ import TaskDetails from './TaskDetails/TaskDetails';
 import ToDoList from "./ToDoList/ToDoList";
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { currentTodoSelector } from '../store/todos/selectors';
 
 
 export const MainBlock = styled.main`
@@ -13,8 +14,7 @@ export const MainBlock = styled.main`
 
 const ToDoApp = () => {
     const [currentToDoId, setCurrentToDoId] = useState('');
-    const currentToDo = useSelector(state => currentToDoId && Object.values(state.todos).length ? state.todos[currentToDoId] : {})
-   
+    const currentToDo = useSelector(currentTodoSelector(currentToDoId))
 
     function onChangeCurrentToDo(id) {
         setCurrentToDoId(id)
