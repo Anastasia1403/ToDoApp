@@ -1,43 +1,52 @@
 import React from 'react';
-import TagItem from '../TagItem/TagItem';
-import { defaultTagsArray } from "./../../helpers/constants";
+import { useDispatch, useSelector } from 'react-redux';
+import { tagsSelector } from '../../store/tags/selectors';
+import { deleteTodoAction, toggleTodoAction } from '../../store/todos/action';
+import TagItem from '../../shared/TagItem/TagItem';
 import { StyledToDoItem,
         ToDoContent,
         TagMarkersList,
         DeleteButton } from './styled'
 
-const ToDoItem = ({ editToDo, todo, isCompleted, deleteToDo, id, tags, onChangeCurrentToDo }) => {
-    function handleDelete() {
-        deleteToDo(id)
-    }
-    function handleEdit() {
-        editToDo(id)
-    }
+const ToDoItem = ({ todo, id, onChangeCurrentToDo, isActive, currentToDoId }) => {
+    const tagsList = useSelector(tagsSelector)
+    const dispatch = useDispatch()
     function handleChangeCurrentToDo() {
         onChangeCurrentToDo(id)
     }
-
+    function handleDeleteTodo (e) {
+        e.stopPropagation();
+        if (id === currentToDoId) {
+            onChangeCurrentToDo('')
+        }
+        dispatch(deleteTodoAction(id))
+    }
+    function handleToggleTodo (e) {
+        e.stopPropagation();
+        dispatch(toggleTodoAction(id))
+    }
     return (
-        <StyledToDoItem onClick={handleChangeCurrentToDo}>
+        <StyledToDoItem isActive={isActive} onClick={handleChangeCurrentToDo}>
             <div>
                 <ToDoContent
-                    isCompleted={isCompleted}
-                    onClick={handleEdit}
+                    isCompleted={todo.isCompleted}
+                    onClick={handleToggleTodo}
                 >
-                    {todo}
+                    <input readOnly checked={todo.isCompleted} type="checkbox"/>
+                    {todo.title}
                 </ToDoContent>
                 <TagMarkersList>
-                    {tags.map(tag =>
+                    {todo.tags.length && todo.tags.map(tagId =>
                     <TagItem 
                         size='small'
-                        key={tag}
-                        color={defaultTagsArray.find(tagType => tagType.title === tag).color}
-                        title={tag}
-                    >{tag}</TagItem>
+                        key={tagId}
+                        color={tagsList[tagId].color}
+                        title={tagsList[tagId].title}
+                    />                    
                     )}
                 </TagMarkersList>
             </div>
-            <DeleteButton onClick={handleDelete}>✖</DeleteButton>
+            <DeleteButton onClick={handleDeleteTodo}>✖</DeleteButton>
         </StyledToDoItem>
     )
 };

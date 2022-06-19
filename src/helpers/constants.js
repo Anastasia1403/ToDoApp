@@ -11,3 +11,4 @@ export const testTask = {
     tags: ['hobby' ],
     isCompleted: false,
 }
+export const colors = ['#465895', '#a789a5', '#ce8fd7', '#84a0ec', '#a81b69', '#fd256e']

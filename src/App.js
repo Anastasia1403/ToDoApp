@@ -1,9 +1,13 @@
+import { Provider } from 'react-redux';
 import './App.css';
 import ToDoApp from "./components/ToDoApp";
+import store from './store/store';
 
 function App() {
   return (
-     <ToDoApp/>
+    <Provider store={store}>
+      <ToDoApp/>
+    </Provider>
   )
 }
 
