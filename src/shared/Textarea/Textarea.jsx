@@ -1,15 +1,21 @@
 import styled from 'styled-components'
 
 const Textarea = styled.textarea`
-    width: 70%;
-    min-width: 200px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 4px 8px;    
+    border: 2px solid #67547b;
+    outline: none;
     resize: none;
+    &:active,
+    &:hover,
+    &:focus {
+        background: #e9ebe8;
+        outline: none;
+    };
+    &:placeholder {
+        color: #4b3166
+    }
     `
-
-// function Textarea({placeholder, value, onChange}) {
-//   return (
-//     <StyledTextarea value={value} placeholder={placeholder} onChange={onChange}></StyledTextarea>
-//   )
-// }
 
 export default Textarea

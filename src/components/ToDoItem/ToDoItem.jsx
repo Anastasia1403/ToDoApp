@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { tagsSelector } from '../../store/tags/selectors';
-import { deleteTodoAction, toggleTodoAction } from '../../store/todos/action';
+import { deleteTodoAction, toggleTodoAction } from '../../store/todos/actions';
 import TagItem from '../../shared/TagItem/TagItem';
 import { StyledToDoItem,
         ToDoContent,
@@ -36,14 +36,14 @@ const ToDoItem = ({ todo, id, onChangeCurrentToDo, isActive, currentToDoId }) =>
                     {todo.title}
                 </ToDoContent>
                 <TagMarkersList>
-                    {todo.tags.length && todo.tags.map(tagId =>
+                    {todo.tags.length ? todo.tags.map(tagId =>
                     <TagItem 
                         size='small'
                         key={tagId}
                         color={tagsList[tagId].color}
                         title={tagsList[tagId].title}
                     />                    
-                    )}
+                    ) : null}
                 </TagMarkersList>
             </div>
             <DeleteButton onClick={handleDeleteTodo}>✖</DeleteButton>

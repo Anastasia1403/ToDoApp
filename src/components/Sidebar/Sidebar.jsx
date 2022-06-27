@@ -1,41 +1,37 @@
-import React, { useState } from 'react';
-import {StyledSidebar, TagsList } from './styled';
+import React, { useContext } from 'react';
+import {StyledSidebar, TagsList, ToggleButton } from './styled';
 import TagItem from '../../shared/TagItem/TagItem';
 import { useSelector } from 'react-redux';
-import CustomModal from '../../shared/CustomModal/CustomModal';
-import ChangeTagsForm from '../ChangeTagsForm/ChangeTagsForm';
 import Button from '../../shared/Button/Button';
 import plus from '../../assets/svg/plus-icon.svg'
 import { tagsSelector } from '../../store/tags/selectors';
+import { TagsModalContext } from '../ToDoApp';
+import Title from '../../shared/Title/Title';
 
-const Sidebar = () => {
+const Sidebar = ({isSidebarOpen, closeSidebar}) => {
     const tagsList = useSelector(tagsSelector);
-
-    const [tagsModalIsOpen, setIsOpen] = useState(false);
 
     const openModal = (e) => {
         e.preventDefault();
         setIsOpen(true)
     }
-    const closeModal = (e) => {
-        e.preventDefault();
-        setIsOpen(false)
-    }
+    
+    const {setIsOpen} = useContext(TagsModalContext)
     return (
-        <StyledSidebar>
-            <div>
-                <h3>Tags</h3>
+            <StyledSidebar isSidebarOpen={isSidebarOpen}>
+                <ToggleButton 
+                    isSidebarOpen={isSidebarOpen} 
+                    onClick={closeSidebar}>
+                </ToggleButton>
+                <Title>Tags</Title>
                 <TagsList>
                 {
                     Object.entries(tagsList).map(([id, tag]) => <TagItem key={id} color={tag.color} title={tag.title}/>)
                 }
                 </TagsList>
                 <Button icon={plus} type='submit' onClick={openModal}>add new tag</Button>
-            </div>
-            <CustomModal closeModal={closeModal} modalIsOpen={tagsModalIsOpen}>
-                <ChangeTagsForm/>
-            </CustomModal>
-        </StyledSidebar>
+                            </StyledSidebar>
+        
     );
 }
 
