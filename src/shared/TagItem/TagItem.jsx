@@ -2,7 +2,8 @@ import React from 'react'
 import { StyledTagItem, TagCheckbox, TagCheckboxLabel } from './styled';
 
 
-function TagItem({size='default', checked=true, title, id, color, onClick }) {
+function TagItem({size='default', checked=true, tag, id,  onClick }) {
+  const {color, title} = tag;
   return (    
     <StyledTagItem  checked={checked} color={color} size={size}>
       { onClick ?

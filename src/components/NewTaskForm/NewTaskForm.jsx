@@ -31,9 +31,6 @@ function NewTaskForm({closeModal}) {
         e.preventDefault()
         dispatch(addTodoAction({title, description, tags: selectedTags}));
         closeModal()
-        setTitle('');
-        setDescription('');
-        setSelectedTags([]);
     }
     function onChangeTodo(e) {
         setTitle(e.target.value)
@@ -68,10 +65,9 @@ function NewTaskForm({closeModal}) {
                 <TagsList>
                     {Object.entries(tagsList).map(([id, tag]) => <TagItem
                                                     checked={selectedTags.includes(id)}
-                                                    color={tag.color} 
+                                                    tag={tag} 
                                                     key={id}
                                                     id={id}
-                                                    title={tag.title}
                                                     onClick={onChangeTags}
                                                     >
                                                         

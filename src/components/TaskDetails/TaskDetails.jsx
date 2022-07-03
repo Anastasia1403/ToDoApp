@@ -5,9 +5,11 @@ import { tagsByIdSelector } from '../../store/tags/selectors';
 import TagItem from '../../shared/TagItem/TagItem';
 import { TaskInfo } from './styled';
 import Title from '../../shared/Title/Title';
+import { currentTodoSelector } from '../../store/todos/selectors';
 
 
-const TaskDetails = ({ currentToDo, currentToDoId }) => {
+const TaskDetails = ({ currentToDoId }) => {
+    const currentToDo = useSelector(currentTodoSelector(currentToDoId))
     const currentTags = useSelector(tagsByIdSelector(currentToDo.tags))
     return (
         <StyledSection>
@@ -18,7 +20,7 @@ const TaskDetails = ({ currentToDo, currentToDoId }) => {
                 <h5>Description</h5>
                 <div>{currentToDo.description}</div>
                 <h5>Tags</h5>
-                <ul>{currentTags.map(tag => <TagItem key={tag.title} size='small' color={tag.color} title={tag.title}/>)}</ul>
+                <ul>{currentTags.map(tag => <TagItem key={tag.title} size='small' tag={tag}/>)}</ul>
                 <h5>Status</h5>
                 <div>{currentToDo.isCompleted ? 'DONE' : 'IN PROGRESS'}</div>   
             </TaskInfo> }

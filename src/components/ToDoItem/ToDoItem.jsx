@@ -36,14 +36,13 @@ const ToDoItem = ({ todo, id, onChangeCurrentToDo, isActive, currentToDoId }) =>
                     {todo.title}
                 </ToDoContent>
                 <TagMarkersList>
-                    {todo.tags.length ? todo.tags.map(tagId =>
+                    {Boolean(todo.tags.length) && todo.tags.map(tagId =>
                     <TagItem 
                         size='small'
                         key={tagId}
-                        color={tagsList[tagId].color}
-                        title={tagsList[tagId].title}
+                        tag={tagsList[tagId]}
                     />                    
-                    ) : null}
+                    )}
                 </TagMarkersList>
             </div>
             <DeleteButton onClick={handleDeleteTodo}>✖</DeleteButton>

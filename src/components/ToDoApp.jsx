@@ -3,8 +3,6 @@ import Sidebar from './Sidebar/Sidebar';
 import TaskDetails from './TaskDetails/TaskDetails';
 import ToDoList from "./ToDoList/ToDoList";
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { currentTodoSelector } from '../store/todos/selectors';
 import CustomModal from '../shared/CustomModal/CustomModal';
 import ChangeTagsForm from './ChangeTagsForm/ChangeTagsForm';
 
@@ -30,7 +28,6 @@ export const TagsModalContext = React.createContext({
 
 const ToDoApp = () => {
     const [currentToDoId, setCurrentToDoId] = useState('');
-    const currentToDo = useSelector(currentTodoSelector(currentToDoId))
 
     const [tagsModalIsOpen, setIsOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -47,19 +44,21 @@ const ToDoApp = () => {
     }
 
     return (
-        <TagsModalContext.Provider value={{setIsOpen}}>
-        <Sidebar isSidebarOpen={isSidebarOpen} closeSidebar={toggleSidebar}/>
-        <MainBlock>
-            <ToDoList 
-                onChangeCurrentToDo={onChangeCurrentToDo}
-                currentToDoId={currentToDoId}
-            />
-            <TaskDetails currentToDoId={currentToDoId} currentToDo={currentToDo}/>
+        <>
+            <TagsModalContext.Provider value={{setIsOpen}}>
+                <Sidebar isSidebarOpen={isSidebarOpen} closeSidebar={toggleSidebar}/>
+                <MainBlock>
+                    <ToDoList 
+                        onChangeCurrentToDo={onChangeCurrentToDo}
+                        currentToDoId={currentToDoId}
+                    />
+                    <TaskDetails currentToDoId={currentToDoId}/>
+                </MainBlock>
+            </TagsModalContext.Provider>
             <CustomModal closeModal={closeModal} modalIsOpen={tagsModalIsOpen}>
                 <ChangeTagsForm closeModal={closeModal}/>
             </CustomModal>
-        </MainBlock>
-        </TagsModalContext.Provider>
+        </>
     )
 };
 

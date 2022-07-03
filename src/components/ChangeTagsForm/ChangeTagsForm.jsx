@@ -4,7 +4,7 @@ import Button from '../../shared/Button/Button'
 import { addTagAction } from '../../store/tags/actions'
 import Input from '../../shared/Input/Input'
 import { selectCustomStyles } from './styled'
-import { colorsSelector } from '../../store/colors/selectors'
+import { colorsOptionsSelector, colorsSelector } from '../../store/colors/selectors'
 import { useSelector } from 'react-redux';
 import { deleteColorsAction } from '../../store/colors/actions'
 import Select from 'react-select'
@@ -19,10 +19,9 @@ function ChangeTagsForm({ closeModal }) {
     const [tagColorId, setTagColorId] = useState('')
 
 
+    const colorsOptionsList = useSelector(colorsOptionsSelector)
     const colorsList = useSelector(colorsSelector)
-    const colorOptions = Object.entries(colorsList).map(([id, color]) => {
-        return {value: id, label: color.color}
-    })
+    
     const dispatch = useDispatch()
     const onChangeTagTitle = (e) => {
         setTagTitle(e.target.value)
@@ -35,15 +34,15 @@ function ChangeTagsForm({ closeModal }) {
         dispatch(addTagAction({title: tagTitle, color: colorsList[tagColorId].color}));
         closeModal(e);
         dispatch(deleteColorsAction(tagColorId))
-        setTagTitle('');
-        setTagColorId('');
     }
+
+    const isButtonDisabled = !Boolean(tagTitle) || !Boolean(tagColorId)
     return (
         <Form>
             <Title>Create New Tag</Title>
             <InputWrapper>
-            <Label htmlFor='tagName'>
-                Title*
+            <Label htmlFor='tagName' required>
+                Title
             </Label>
                 <Input 
                 id='tagName' 
@@ -55,19 +54,19 @@ function ChangeTagsForm({ closeModal }) {
                 />
             </InputWrapper>
             <InputWrapper>
-            <Label htmlFor='colorSelect'>
-                Color*
+            <Label htmlFor='colorSelect' required>
+                Color
             </Label>
                 <Select
                 styles={selectCustomStyles}
                 onChange={onChangeTagColor}
-                options={colorOptions}
+                options={colorsOptionsList}
                 placeholder='Select tag color'
                 id='colorSelect'
                 />
             </InputWrapper>
             
-            <Button type='submit' disabled={!Boolean(tagTitle) || !Boolean(tagColorId)} onClick={onSubmit}>Create Tag</Button>
+            <Button type='submit' disabled={isButtonDisabled} onClick={onSubmit}>Create Tag</Button>
             
             
         </Form>

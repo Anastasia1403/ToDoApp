@@ -26,7 +26,7 @@ const Sidebar = ({isSidebarOpen, closeSidebar}) => {
                 <Title>Tags</Title>
                 <TagsList>
                 {
-                    Object.entries(tagsList).map(([id, tag]) => <TagItem key={id} color={tag.color} title={tag.title}/>)
+                    Object.entries(tagsList).map(([id, tag]) => <TagItem key={id} tag={tag}/>)
                 }
                 </TagsList>
                 <Button icon={plus} type='submit' onClick={openModal}>add new tag</Button>
