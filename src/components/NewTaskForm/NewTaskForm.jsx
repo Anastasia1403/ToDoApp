@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
-import { Form, TagsList } from './styled'
+import React, { useContext, useState } from 'react'
+import { TagsList } from './styled'
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../shared/Button/Button';
-import { addTodoAction } from '../../store/todos/action';
+import { addTodoAction } from '../../store/todos/actions';
 import TagItem from '../../shared/TagItem/TagItem';
 import Input from '../../shared/Input/Input';
 import Textarea from '../../shared/Textarea/Textarea';
+import { TagsModalContext } from '../ToDoApp';
+import Title from '../../shared/Title/Title';
+import { Form } from '../../shared/Form';
+import { InputWrapper } from '../../shared/InputWrapper';
+import { useEffect } from 'react';
 
 function NewTaskForm({closeModal}) {
 
@@ -16,13 +21,16 @@ function NewTaskForm({closeModal}) {
     const [description, setDescription] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
 
+    useEffect(() => {
+      
+    
+    }, [])
+    
+
     function onSubmit(e) {
         e.preventDefault()
         dispatch(addTodoAction({title, description, tags: selectedTags}));
         closeModal()
-        setTitle('');
-        setDescription('');
-        setSelectedTags([]);
     }
     function onChangeTodo(e) {
         setTitle(e.target.value)
@@ -37,23 +45,36 @@ function NewTaskForm({closeModal}) {
             setSelectedTags([...selectedTags, e.target.id])
         }
     }
+    const {setIsOpen} = useContext(TagsModalContext)
+
+    const openTagsModal = (e) => {
+        e.preventDefault();
+        setIsOpen(true)
+    }
     return (
         <Form>
-            <h4>Create New Task</h4>
-            <Input type='text' value={title} onChange={onChangeTodo} placeholder='Add new task'/>
-            <Textarea placeholder='Add note' value={description} onChange={onChangeDescription}/>
-            <TagsList>
-                {Object.entries(tagsList).map(([id, tag]) => <TagItem
-                                                checked={selectedTags.includes(id)}
-                                                color={tag.color} 
-                                                key={id}
-                                                id={id}
-                                                title={tag.title}
-                                                onClick={onChangeTags}
-                                                >
-                                                    
-                                                </TagItem>)}
-            </TagsList>
+            <Title>Create New Task</Title>
+
+            <InputWrapper>
+                <Input type='text' value={title} onChange={onChangeTodo} placeholder='Add new task' autoFocus/>
+            </InputWrapper>
+            <InputWrapper>
+                <Textarea placeholder='Add note' value={description} onChange={onChangeDescription}/>
+            </InputWrapper>
+            <InputWrapper>
+                <TagsList>
+                    {Object.entries(tagsList).map(([id, tag]) => <TagItem
+                                                    checked={selectedTags.includes(id)}
+                                                    tag={tag} 
+                                                    key={id}
+                                                    id={id}
+                                                    onClick={onChangeTags}
+                                                    >
+                                                        
+                                                    </TagItem>)}
+                    <Button type='button' onClick={openTagsModal}>+</Button>
+                </TagsList>
+            </InputWrapper>
 
             <Button type="submit" onClick={onSubmit} disabled={!Boolean(title)}>Add Task</Button>
 

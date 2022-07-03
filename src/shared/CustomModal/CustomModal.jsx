@@ -6,11 +6,14 @@ export const customStyles = {
   content: {
       top: '50%',
       left: '50%',
-      height: '50%',
+      height: '60%',
       maxWidth: '500px',
       minWidth: '300px',
       width: '70%',
       transform: 'translate(-50%, -50%)',
+      borderRadius: '10px',
+      border: '2px solid #c8bbe9',
+      fontFamily: 'Avenir, Helvetica, Arial, sans-serif'
   
   },
 };

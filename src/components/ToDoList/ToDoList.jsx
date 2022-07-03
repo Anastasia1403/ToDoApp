@@ -20,9 +20,10 @@ const ToDoList = ({ onChangeCurrentToDo, currentToDoId}) => {
     function closeModal() {
         setIsOpen(false);
     }
+    const shouldShowList = Boolean(Object.keys(todos).length)
     return (
         <StyledSection>
-            { Object.keys(todos).length ?
+            { shouldShowList ?
                 <StyledList>
                     {(Object.entries(todos)).map(([id, todo]) => {
                         return <ToDoItem

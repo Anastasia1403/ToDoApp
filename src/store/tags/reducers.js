@@ -1,19 +1,19 @@
 const initialState = {
     1: {
         title: 'work',
-        color: '#546556',
+        color: '#df6575',
     },
     2: {
         title: 'hobby',
-        color: '#789521',
+        color: '#fab655',
     },
     3: {
         title: 'family',
-        color: '#721356',
+        color: '#435675',
     },
     4: {
         title: 'home',
-        color: '#513530',
+        color: '#4596c5',
     }
     
 }
