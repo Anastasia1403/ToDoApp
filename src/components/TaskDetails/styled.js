@@ -8,4 +8,3 @@ export const TaskInfo = styled.div`
     & h5, & div {
         text-align: left;
     }` 
-

@@ -1,11 +1,15 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { colorsSelector } from '../../store/colors/selectors';
 import { StyledTagItem, TagCheckbox, TagCheckboxLabel } from './styled';
 
 
 function TagItem({size='default', checked=true, tag, id,  onClick }) {
-  const {color, title} = tag;
+  const colorList = useSelector(colorsSelector)
+
+  const {title, color: colorId} = tag;
   return (    
-    <StyledTagItem  checked={checked} color={color} size={size}>
+    <StyledTagItem  checked={checked} color={colorList[colorId].color} size={size}>
       { onClick ?
       <>
         <TagCheckbox
@@ -17,7 +21,7 @@ function TagItem({size='default', checked=true, tag, id,  onClick }) {
         <TagCheckboxLabel
             htmlFor={id}
             checked={checked}
-            color={color}>
+            color={colorList[colorId].color}>
                 {title}
         </TagCheckboxLabel> 
       </>

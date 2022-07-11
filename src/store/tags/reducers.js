@@ -1,19 +1,19 @@
 const initialState = {
     1: {
         title: 'work',
-        color: '#df6575',
+        color: 1,
     },
     2: {
         title: 'hobby',
-        color: '#fab655',
+        color: 2,
     },
     3: {
         title: 'family',
-        color: '#435675',
+        color: 3,
     },
     4: {
         title: 'home',
-        color: '#4596c5',
+        color: 4,
     }
     
 }
@@ -25,7 +25,17 @@ const tagsReducer = (state=initialState, action) => {
             const id = Date.now();
             newState[id] = {
                 title: action.payload.title,
-                color: action.payload.color,
+                color: Number(action.payload.colorId),
+            }
+            return newState;
+        case 'tags/delete': {
+            delete newState[action.payload]
+            return newState;
+        }
+        case 'tags/edit':
+            newState[action.payload.id] = {
+                title: action.payload.title,
+                color: Number(action.payload.colorId),
             }
             return newState;
         default:

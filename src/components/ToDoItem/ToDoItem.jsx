@@ -28,7 +28,7 @@ const ToDoItem = ({ todo, id, onChangeCurrentToDo, isActive, currentToDoId }) =>
     return (
         <StyledToDoItem isActive={isActive} onClick={handleChangeCurrentToDo}>
             <div>
-                <ToDoContent
+            <ToDoContent
                     isCompleted={todo.isCompleted}
                     onClick={handleToggleTodo}
                 >
@@ -36,7 +36,7 @@ const ToDoItem = ({ todo, id, onChangeCurrentToDo, isActive, currentToDoId }) =>
                     {todo.title}
                 </ToDoContent>
                 <TagMarkersList>
-                    {Boolean(todo.tags.length) && todo.tags.map(tagId =>
+                {Boolean(todo.tags.length) && todo.tags.map(tagId =>
                     <TagItem 
                         size='small'
                         key={tagId}

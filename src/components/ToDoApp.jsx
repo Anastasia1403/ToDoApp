@@ -4,7 +4,7 @@ import TaskDetails from './TaskDetails/TaskDetails';
 import ToDoList from "./ToDoList/ToDoList";
 import styled from 'styled-components';
 import CustomModal from '../shared/CustomModal/CustomModal';
-import ChangeTagsForm from './ChangeTagsForm/ChangeTagsForm';
+import TagForm from './TagForm/TagForm';
 
 
 export const MainBlock = styled.main`
@@ -30,7 +30,7 @@ const ToDoApp = () => {
     const [currentToDoId, setCurrentToDoId] = useState('');
 
     const [tagsModalIsOpen, setIsOpen] = useState(false);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     
     function onChangeCurrentToDo(id) {
         setCurrentToDoId(id)
@@ -42,7 +42,6 @@ const ToDoApp = () => {
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
     }
-
     return (
         <>
             <TagsModalContext.Provider value={{setIsOpen}}>
@@ -52,11 +51,11 @@ const ToDoApp = () => {
                         onChangeCurrentToDo={onChangeCurrentToDo}
                         currentToDoId={currentToDoId}
                     />
-                    <TaskDetails currentToDoId={currentToDoId}/>
+                    <TaskDetails currentToDoId={currentToDoId} onChangeCurrentToDo={onChangeCurrentToDo}/>
                 </MainBlock>
             </TagsModalContext.Provider>
-            <CustomModal closeModal={closeModal} modalIsOpen={tagsModalIsOpen}>
-                <ChangeTagsForm closeModal={closeModal}/>
+            <CustomModal closeModal={closeModal} modalIsOpen={tagsModalIsOpen} title='Create New Tag'>
+                <TagForm closeModal={closeModal}/>
             </CustomModal>
         </>
     )

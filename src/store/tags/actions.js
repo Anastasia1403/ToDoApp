@@ -10,3 +10,15 @@ export const addTagAction = (payload) => {
         payload
     }
 }
+export const deleteTagAction = (payload) => {
+    return {
+        type: tagActionTypes.delete,
+        payload
+    }
+}
+export const editTagAction = (payload) => {
+    return {
+        type: tagActionTypes.edit,
+        payload
+    }
+}

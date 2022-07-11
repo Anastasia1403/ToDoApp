@@ -4,6 +4,7 @@ const StyledLabel = styled.label`
     display: block;
     font-size: 14px;
     color: #8e6ab3;
+    text-align: left;
     `
 
 

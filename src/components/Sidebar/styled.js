@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import arrowIconUrl from '../../assets/svg/arrow-icon.svg';
+import deleteIconUrl from '../../assets/svg/delete-icon.svg';
+import editIconUrl from '../../assets/svg/edit-icon.svg';
 
 export const StyledSidebar = styled.aside`
     transform: ${(props) => (props.isSidebarOpen ? 'translateX(0)' : 'translateX(-185px)')};
-    /* margin-left: ${(props) => (props.isSidebarOpen ? '0' : '-185px')}; */
     position: ${(props) => (props.isSidebarOpen ? 'relative' : 'absolute')};
     height:  ${(props) => (props.isSidebarOpen ? 'auto' : '100%')};
     width: 200px;
@@ -14,7 +15,8 @@ export const StyledSidebar = styled.aside`
     @media (max-width: 500px) {
         position: absolute;
         width: 100%;
-        margin-left: ${(props) => (props.isSidebarOpen ? '0' : '-100%')};
+        height: 100%;
+        transform: ${(props) => (props.isSidebarOpen ? 'translateX(0)' : 'translateX(-95%)')};
         
     }` 
 
@@ -22,7 +24,6 @@ export const ToggleButton = styled.button`
     position: absolute;
     top: 24px;
     right: -12px;
-    /* right: ${(props) => (props.isSidebarOpen ? '24px' : '-40px')}; */
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -31,34 +32,6 @@ export const ToggleButton = styled.button`
     border: 2px solid #5a4385;
     background: #ffffff center / contain no-repeat url(${arrowIconUrl});
     transform: ${(props) => (props.isSidebarOpen ? 'rotate(-180deg)' : 'rotate(0)')};
-    /* &:before {
-        content: '';
-        position: absolute;
-        top: ${(props) => (props.isSidebarOpen ? '12px' : '4.5px')};;
-        left: 8.5px;
-        transform-origin: 0% 50%;
-        transform: ${(props) => (props.isSidebarOpen ? 'rotate(-45deg)' : 'rotate(45deg)')};
-        height: 2px;
-        width: 10px;
-        width: ${(props) => (props.isSidebarOpen ? '16px' :'8px')};
-        border-radius: 1px;
-        background-color: #674f91;
-        transition: 0.5s;
-    }
-    &:after {
-        content: '';
-        position: absolute;
-        bottom: ${(props) => (props.isSidebarOpen ? '12px' : '4.5px')};
-        left: 8.5px;
-        transform-origin: 0% 50%;
-        transform: ${(props) => (props.isSidebarOpen ? 'rotate(45deg)' : 'rotate(-45deg)')};
-        height: 2px;
-        width: 10px;
-        width: ${(props) => (props.isSidebarOpen ? '16px' :'8px')};
-        border-radius: 1px;
-        background-color: #674f91;
-        transition: 0.5s;
-    } */
     &:hover {
         transform: ${(props) => (props.isSidebarOpen ? 'rotate(-180deg) scale(1.3)' : 'rotate(0) scale(1.3) translateX(5px)')}; ;
     }
@@ -70,3 +43,43 @@ export const TagsList = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 12px;`
+
+export const DeleteTagButton = styled.button`
+    position: absolute;
+    display: none;
+    width: 20px;
+    height: 20px;
+    top: -7px;
+    right: -7px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: .5s;
+    background: #39254b center / 70% no-repeat url(${deleteIconUrl});
+    &:hover {
+        transform: scale(1.5);
+    }
+    `
+
+    export const EditTagButton = styled.button`
+    position: absolute;
+    display: none;
+    width: 20px;
+    height: 20px;
+    bottom: -7px;
+    right: -7px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: .5s;
+    background: #39254b center / 70% no-repeat url(${editIconUrl});
+    &:hover {
+        transform: scale(1.5);
+    }
+    `
+export const TagItemWtapper = styled.div`
+    position: relative;
+    &:hover ${DeleteTagButton},
+    &:hover ${EditTagButton} {
+        display: block;
+    }`

@@ -1,10 +1,9 @@
 const colorsActionTypes = {
-    delete: 'color/delete',
+    toggle: 'color/toggle',
 }
-
-export const deleteColorsAction = (payload) => {
+export const toggleColorsAction = (payload) => {
     return {
-        type: colorsActionTypes.delete,
+        type: colorsActionTypes.toggle,
         payload
     }
 }
