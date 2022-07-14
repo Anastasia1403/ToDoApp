@@ -36,7 +36,6 @@ const ToDoApp = () => {
         setCurrentToDoId(id)
     }
     const closeModal = (e) => {
-        e.preventDefault();
         setIsOpen(false)
     }
     const toggleSidebar = () => {

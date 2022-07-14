@@ -13,7 +13,6 @@ const ToDoList = ({ onChangeCurrentToDo, currentToDoId}) => {
     const [modalIsOpen, setIsOpen] = useState(false);
 
     function openModal (e) {
-        e.preventDefault()
         setIsOpen(true);
     }
 

@@ -1,7 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import arrowIconUrl from '../../assets/svg/arrow-icon.svg';
-import deleteIconUrl from '../../assets/svg/delete-icon.svg';
-import editIconUrl from '../../assets/svg/edit-icon.svg';
+
 
 export const StyledSidebar = styled.aside`
     transform: ${(props) => (props.isSidebarOpen ? 'translateX(0)' : 'translateX(-185px)')};
@@ -44,39 +43,40 @@ export const TagsList = styled.ul`
     flex-direction: column;
     gap: 12px;`
 
-export const DeleteTagButton = styled.button`
+const tagButton = css`
     position: absolute;
     display: none;
     width: 20px;
     height: 20px;
-    top: -7px;
     right: -7px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: .5s;
-    background: #39254b center / 70% no-repeat url(${deleteIconUrl});
+    background-color: #39254b;
+    object-fit: contain;
     &:hover {
         transform: scale(1.5);
     }
+    & svg {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        width: 60%;
+        fill: #ffffff;
+    }
+`;
+
+export const DeleteTagButton = styled.button`
+    ${tagButton}
+    top: -7px;    
     `
 
-    export const EditTagButton = styled.button`
-    position: absolute;
-    display: none;
-    width: 20px;
-    height: 20px;
+export const EditTagButton = styled.button`
+    ${tagButton}       
     bottom: -7px;
-    right: -7px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    transition: .5s;
-    background: #39254b center / 70% no-repeat url(${editIconUrl});
-    &:hover {
-        transform: scale(1.5);
-    }
-    `
+`
 export const TagItemWtapper = styled.div`
     position: relative;
     &:hover ${DeleteTagButton},

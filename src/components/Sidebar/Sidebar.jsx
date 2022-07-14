@@ -14,26 +14,27 @@ import { editTodoAction } from '../../store/todos/actions';
 import CustomModal from '../../shared/CustomModal/CustomModal';
 import { useState } from 'react';
 import TagForm from '../TagForm/TagForm';
+import { ReactComponent as DeleteIcon } from '../../assets/svg/delete-icon.svg';
+import { ReactComponent as EditIcon } from '../../assets/svg/edit-icon.svg';
 
-const Sidebar = ({isSidebarOpen, closeSidebar, editTag}) => {
+const Sidebar = ({isSidebarOpen, closeSidebar}) => {
     const tagsList = useSelector(tagsSelector);
     const dispatch = useDispatch();
 	const todos = useSelector(todosSelector)
     
-	const [editTagModalIsOpen, setEditTagModalIsOpen] = useState(false);
-	const [editedTagId, setEditedTagId] = useState('');
+	const [editedTagId, setEditedTagId] = useState(null);
 
 	const openEditTagModal = (e, id) => {
-        e.preventDefault();
 		setEditedTagId(id)
-        setEditTagModalIsOpen(true)
+    }
+	const closeEditTagModal = (e) => {
+		setEditedTagId(null)
     }
 
     const openModal = (e) => {
-        e.preventDefault();
         setIsOpen(true)
     }
-    const deleteTag = (tagId) => {
+    const deleteTag = (tagId, color) => {
 		Object.keys(todos).length && Object.entries(todos).forEach(([todoId, todo]) => {
 			if (todo.tags.includes(tagId)) {
 				todo.tags.splice(todo.tags.indexOf(tagId), 1)
@@ -41,11 +42,7 @@ const Sidebar = ({isSidebarOpen, closeSidebar, editTag}) => {
 			} 
         })
         dispatch(deleteTagAction(tagId))
-        dispatch(toggleColorsAction(tagId)) 
-    }
-	const closeEditTagModal = (e) => {
-        e.preventDefault();
-		setEditTagModalIsOpen(false)
+        dispatch(toggleColorsAction(color)) 
     }
     
     const {setIsOpen} = useContext(TagsModalContext)
@@ -61,13 +58,13 @@ const Sidebar = ({isSidebarOpen, closeSidebar, editTag}) => {
                     Object.entries(tagsList).map(([id, tag]) => 
                         <TagItemWtapper>
                             <TagItem key={id} tag={tag}/>
-                            <DeleteTagButton onClick={() => deleteTag(id, tag.color)}/>
-                            <EditTagButton onClick={(e) => openEditTagModal(e, id)}/>
+                            <DeleteTagButton onClick={() => deleteTag(id, tag.color)}><DeleteIcon /></DeleteTagButton>
+                            <EditTagButton onClick={(e) => openEditTagModal(e, id)}><EditIcon/></EditTagButton>
                         </TagItemWtapper>)
                 }
                 </TagsList>
                 <Button icon={plus} type='submit' onClick={openModal}>add new tag</Button>
-				<CustomModal closeModal={closeEditTagModal} modalIsOpen={editTagModalIsOpen} title='Edit Tag'>
+				<CustomModal closeModal={closeEditTagModal} modalIsOpen={Boolean(editedTagId)} title='Edit Tag'>
 					<TagForm closeModal={closeEditTagModal} editedTagId={editedTagId} />
 				</CustomModal>
             </StyledSidebar>

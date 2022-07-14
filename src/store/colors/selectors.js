@@ -5,9 +5,9 @@ export const colorsOptionsSelector = currentColor => state => Object.entries(sta
     return {value: id, label: color.color}    
 })
 
-export const colorIdByColorSelector = tagColor => state => {
-    Object.entries(state.colors)
-    .find(([id, color]) => {
-        return color.color === tagColor
-    }
-)}
+// export const colorIdByColorSelector = tagColor => state => {
+//     Object.entries(state.colors)
+//     .find(([id, color]) => {
+//         return color.color === tagColor
+//     }
+// )}

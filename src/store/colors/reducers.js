@@ -47,6 +47,13 @@ const colorsReducer = (state = initialState, action) => {
         case 'color/toggle':
             newState[action.payload].isUsed = !newState[action.payload].isUsed
             return newState;
+        case 'color/replace':
+            newState[action.payload.prevColor].isUsed = false
+            newState[action.payload.newColor].isUsed = true
+            return newState;
+        case 'tags/delete': 
+            newState[action.payload].isUsed = !newState[action.payload].isUsed
+            return newState;
         default:
             return state
     }

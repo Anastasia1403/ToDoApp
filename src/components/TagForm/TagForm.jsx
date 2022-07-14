@@ -6,26 +6,26 @@ import Input from '../../shared/Input/Input'
 import { selectCustomStyles } from './styled'
 import { colorsOptionsSelector } from '../../store/colors/selectors'
 import { useSelector } from 'react-redux';
-import { toggleColorsAction } from '../../store/colors/actions'
+import { replaceColorsAction, toggleColorsAction } from '../../store/colors/actions'
 import Select from 'react-select'
 import Label from '../../shared/Label/Label'
 import { Form } from '../../shared/Form'
 import { InputWrapper } from '../../shared/InputWrapper'
-import { tagsByIdSelector } from '../../store/tags/selectors'
+import { tagByIdSelector } from '../../store/tags/selectors'
 
 
 function ChangeTagsForm({ editedTagId=null, closeModal }) {
     
     //TODO: use reselect library
-    const [editedTag] = useSelector(tagsByIdSelector([editedTagId]))
+    const editedTag = useSelector(tagByIdSelector(editedTagId))
     const colorsOptionsList = useSelector(colorsOptionsSelector(Number(editedTag?.color)))
 
     const selectedColor = editedTag?.color ? 
         colorsOptionsList.find(colorOption => Number(colorOption.value) === editedTag?.color) : null
 
-
     const [tagTitle, setTagTitle] = useState(editedTagId ? editedTag.title : '')
     const [tagColor, setTagColor] = useState(editedTagId ? selectedColor : '')
+    const isButtonDisabled = !Boolean(tagTitle) || !Boolean(tagColor?.value)
     
     const dispatch = useDispatch()
     const onChangeTagTitle = (e) => {
@@ -35,22 +35,17 @@ function ChangeTagsForm({ editedTagId=null, closeModal }) {
         setTagColor(e)
     }
     const onSubmit = (e) => {
-        if (editedTagId) {
-            e.preventDefault()
-            closeModal(e);
+        closeModal(e);
+        if (editedTagId) {            
             dispatch(editTagAction({id: editedTagId, title: tagTitle, colorId: tagColor.value}))
-            dispatch(toggleColorsAction(tagColor.value))
-            dispatch(toggleColorsAction(editedTag.color))
+            dispatch(replaceColorsAction({prevColor: editedTag.color, newColor: tagColor.value}))
         } else {
-            e.preventDefault()
             dispatch(addTagAction({title: tagTitle, colorId: tagColor.value}));
-            closeModal(e);
             dispatch(toggleColorsAction(tagColor.value))
         }
         
     }
 
-    const isButtonDisabled = !Boolean(tagTitle) || !Boolean(tagColor?.value)
     return (
         <Form>
             <InputWrapper>
