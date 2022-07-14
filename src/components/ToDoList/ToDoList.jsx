@@ -4,7 +4,7 @@ import { StyledSection } from "../../shared/StyledSection";
 import { useSelector } from 'react-redux';
 import Button from '../../shared/Button/Button';
 import CustomModal from '../../shared/CustomModal/CustomModal';
-import NewTaskForm from '../NewTaskForm/NewTaskForm';
+import TaskForm from '../TaskForm/TaskForm';
 import { EmptyBlock, StyledList } from './styled';
 import { todosSelector } from '../../store/todos/selectors';
 
@@ -13,7 +13,6 @@ const ToDoList = ({ onChangeCurrentToDo, currentToDoId}) => {
     const [modalIsOpen, setIsOpen] = useState(false);
 
     function openModal (e) {
-        e.preventDefault()
         setIsOpen(true);
     }
 
@@ -41,8 +40,9 @@ const ToDoList = ({ onChangeCurrentToDo, currentToDoId}) => {
             <CustomModal
                 closeModal={closeModal}
                 modalIsOpen={modalIsOpen}
+                title='Create New Task'
             >
-                <NewTaskForm closeModal={closeModal}/>
+                <TaskForm closeModal={closeModal}/>
             </CustomModal>
         </StyledSection>
     )

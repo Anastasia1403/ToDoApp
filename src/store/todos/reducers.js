@@ -18,6 +18,15 @@ const todoReducer = (state = initialState, action) => {
         case 'todo/toggle':
             newState[action.payload].isCompleted = !newState[action.payload].isCompleted
             return newState
+        case 'todo/edit':
+            newState[action.payload.id] = {
+                ...newState[action.payload.id],
+                ...(action.payload.title && {title: action.payload.title}),
+                ...(action.payload.description && {description: action.payload.description}),
+                ...(action.payload.hasOwnProperty('isCompleted') && {isCompleted: action.payload.isCompleted }),
+                ...(action.payload.tags && {tags: action.payload.tags}),
+            }
+            return newState
         default:
             return state
     }
