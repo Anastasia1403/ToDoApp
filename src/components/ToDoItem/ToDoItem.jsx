@@ -5,20 +5,17 @@ import { deleteTodoAction, toggleTodoAction } from '../../store/todos/actions';
 import TagItem from '../../shared/TagItem/TagItem';
 import { StyledToDoItem,
         ToDoContent,
-        TagMarkersList,
-        DeleteButton } from './styled'
+        TagMarkersList, 
+        IconsWrapper} from './styled'
+import { LinkTaskButton, TaskButton } from '../../shared/IconButton';
+import { ReactComponent as DeleteIcon } from '../../assets/svg/delete-icon.svg';
+import { ReactComponent as ShowIcon } from '../../assets/svg/show-icon.svg';
 
-const ToDoItem = ({ todo, id, onChangeCurrentToDo, isActive, currentToDoId }) => {
+const ToDoItem = ({ todo, id, isEditable }) => {
     const tagsList = useSelector(tagsSelector)
     const dispatch = useDispatch()
-    function handleChangeCurrentToDo() {
-        onChangeCurrentToDo(id)
-    }
     function handleDeleteTodo (e) {
         e.stopPropagation();
-        if (id === currentToDoId) {
-            onChangeCurrentToDo('')
-        }
         dispatch(deleteTodoAction(id))
     }
     function handleToggleTodo (e) {
@@ -26,13 +23,14 @@ const ToDoItem = ({ todo, id, onChangeCurrentToDo, isActive, currentToDoId }) =>
         dispatch(toggleTodoAction(id))
     }
     return (
-        <StyledToDoItem isActive={isActive} onClick={handleChangeCurrentToDo}>
+        <StyledToDoItem>
             <div>
             <ToDoContent
                     isCompleted={todo.isCompleted}
-                    onClick={handleToggleTodo}
+                    isEditable={isEditable}
+                    onClick={isEditable && handleToggleTodo}
                 >
-                    <input readOnly checked={todo.isCompleted} type="checkbox"/>
+                    {isEditable && <input readOnly checked={todo.isCompleted} type="checkbox"/>}
                     {todo.title}
                 </ToDoContent>
                 <TagMarkersList>
@@ -45,7 +43,13 @@ const ToDoItem = ({ todo, id, onChangeCurrentToDo, isActive, currentToDoId }) =>
                     )}
                 </TagMarkersList>
             </div>
-            <DeleteButton onClick={handleDeleteTodo}>✖</DeleteButton>
+            {isEditable && 
+            <IconsWrapper>
+                <TaskButton onClick={handleDeleteTodo}><DeleteIcon /></TaskButton>
+                <LinkTaskButton to={`/tasks/${id}`}><ShowIcon /></LinkTaskButton>
+            </IconsWrapper>}
+            
+            
         </StyledToDoItem>
     )
 };

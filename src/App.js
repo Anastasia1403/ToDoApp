@@ -1,14 +1,29 @@
-import { Provider } from 'react-redux';
-import './App.css';
-import ToDoApp from "./components/ToDoApp";
-import store from './store/store';
+import React, { useState } from 'react';
+import TagForm from './components/TagForm/TagForm';
+import Router from './routes/Router';
+import CustomModal from './shared/CustomModal/CustomModal';
 
-function App() {
-  return (
-    <Provider store={store}>
-      <ToDoApp/>
-    </Provider>
-  )
-}
+export const TagsModalContext = React.createContext({
+    tagsModalIsOpen: false,
+    setIsOpen: () => {}
+})
+
+const App = () => {
+    const [tagsModalIsOpen, setIsOpen] = useState(false);
+
+    const closeModal = (e) => {
+        setIsOpen(false)
+    }
+    return (
+        <>
+            <TagsModalContext.Provider value={{setIsOpen}}>
+                <Router/>
+            </TagsModalContext.Provider>
+            <CustomModal closeModal={closeModal} modalIsOpen={tagsModalIsOpen} title='Create New Tag'>
+                <TagForm closeModal={closeModal}/>
+            </CustomModal>
+        </>
+    )
+};
 
 export default App;
