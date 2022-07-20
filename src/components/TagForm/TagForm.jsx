@@ -14,8 +14,8 @@ import { InputWrapper } from '../../shared/InputWrapper'
 import { tagByIdSelector } from '../../store/tags/selectors'
 
 
-function ChangeTagsForm({ editedTagId=null, closeModal }) {
-    
+function TagForm({ editedTagId=null, closeModal }) {
+
     //TODO: use reselect library
     const editedTag = useSelector(tagByIdSelector(editedTagId))
     const colorsOptionsList = useSelector(colorsOptionsSelector(Number(editedTag?.color)))
@@ -81,4 +81,4 @@ function ChangeTagsForm({ editedTagId=null, closeModal }) {
     )
 }
 
-export default ChangeTagsForm
+export default TagForm

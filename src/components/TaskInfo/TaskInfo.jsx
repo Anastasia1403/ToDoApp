@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { currentTodoSelector } from '../../store/todos/selectors';
 import { tagsArrayByIdSelector } from '../../store/tags/selectors';
 import { deleteTodoAction } from '../../store/todos/actions';
+import { useNavigate } from 'react-router-dom';
 
-function TaskInfo({currentToDoId=null, onToggleEditMode, onChangeCurrentToDo}) {
+function TaskInfo({currentToDoId, onToggleEditMode }) {
+    const navigate = useNavigate()
 
     const currentToDo = useSelector(currentTodoSelector(currentToDoId))
     const currentTags = useSelector(tagsArrayByIdSelector(currentToDo.tags))
@@ -17,8 +19,8 @@ function TaskInfo({currentToDoId=null, onToggleEditMode, onChangeCurrentToDo}) {
     const dispatch = useDispatch()
 
     const handleDeleteTask = (e) => {
-        onChangeCurrentToDo('')
         dispatch(deleteTodoAction(currentToDoId))
+        navigate('/tasks');
     }
 
     return (

@@ -10,7 +10,7 @@ import TagItem from '../../shared/TagItem/TagItem';
 import Textarea from '../../shared/Textarea/Textarea';
 import { tagsSelector } from '../../store/tags/selectors';
 import { addTodoAction } from '../../store/todos/actions';
-import { TagsModalContext } from '../ToDoApp';
+import { TagsModalContext } from '../../App';
 import { TagsList } from './styled';
 
 function CreateTaskForm({

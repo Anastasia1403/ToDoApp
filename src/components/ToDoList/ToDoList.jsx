@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import ToDoItem from "../ToDoItem/ToDoItem";
 import { StyledSection } from "../../shared/StyledSection";
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import Button from '../../shared/Button/Button';
 import CustomModal from '../../shared/CustomModal/CustomModal';
 import TaskForm from '../TaskForm/TaskForm';
 import { EmptyBlock, StyledList } from './styled';
-import { todosSelector } from '../../store/todos/selectors';
+import Title from '../../shared/Title/Title';
 
-const ToDoList = ({ onChangeCurrentToDo, currentToDoId}) => {
-    const todos = useSelector(todosSelector)
-    const [modalIsOpen, setIsOpen] = useState(false);
+const ToDoList = ({taskList, isEditable, emptyText, title}) => {
+
+    const [modalIsOpen, setIsOpen] = useState(false)
+    const shouldShowList = Boolean(Object.keys(taskList).length)
 
     function openModal (e) {
         setIsOpen(true);
@@ -19,31 +20,35 @@ const ToDoList = ({ onChangeCurrentToDo, currentToDoId}) => {
     function closeModal() {
         setIsOpen(false);
     }
-    const shouldShowList = Boolean(Object.keys(todos).length)
+
     return (
         <StyledSection>
+            <Title>{title}</Title>
             { shouldShowList ?
                 <StyledList>
-                    {(Object.entries(todos)).map(([id, todo]) => {
+                    {(Object.entries(taskList)).map(([id, todo]) => {
                         return <ToDoItem
-                            isActive={currentToDoId === id}
-                            currentToDoId={currentToDoId}
-                            onChangeCurrentToDo={onChangeCurrentToDo}
+                            isEditable={isEditable}
                             id={id}
                             key={id}
                             todo={todo}
                             />
                     })}
                 </StyledList>
-            : <EmptyBlock>What do you want to do?</EmptyBlock> }
-            <Button onClick={openModal}>Create New Task</Button>
-            <CustomModal
-                closeModal={closeModal}
-                modalIsOpen={modalIsOpen}
-                title='Create New Task'
-            >
-                <TaskForm closeModal={closeModal}/>
-            </CustomModal>
+            : <EmptyBlock>{emptyText}</EmptyBlock> }
+            {
+            isEditable && 
+                <>
+                    <Button onClick={openModal}>Create New Task</Button>
+                    <CustomModal
+                        closeModal={closeModal}
+                        modalIsOpen={modalIsOpen}
+                        title='Create New Task'
+                    >
+                        <TaskForm closeModal={closeModal}/>
+                    </CustomModal>
+                </>
+            }
         </StyledSection>
     )
 };
