@@ -21,7 +21,8 @@ transition: 0.5s;
     position: absolute;
     content: '';
     top: -50%;
-    left: ${props => props.isActive ? '-12px' : '-192px'};
+    left: -12px;
+    transform: ${props => props.isActive ? 'translate(0)' : 'translate(-192px)'};
     height: 200%;
     width: 180px;
     background-color: #ffe66c;
@@ -30,6 +31,7 @@ transition: 0.5s;
     z-index: -1;
 }
 &:hover:after {
-    left: ${props => props.isActive ? '-12px' : '-160px'};
+    transform: ${props => props.isActive ? 'translate(0)' : 'translate(-160px)'};
+    /* left: ${props => props.isActive ? '-12px' : '-160px'}; */
 }
 `

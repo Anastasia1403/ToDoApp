@@ -1,12 +1,13 @@
-import moment from 'moment';
 import React, { useEffect, useState } from 'react'
+import { getCurrentTime } from '../../helpers/getCurrentTime'
 
 function DateTimeBlock() {
+    
 
-    const [dateTime, setDateTime] = useState(moment().format('MMMM Do YYYY, h:mm:ss a'))
+    const [dateTime, setDateTime] = useState(getCurrentTime())
     useEffect(() => {
         const getDateTime = setInterval(() => {
-            setDateTime(moment().format('MMMM Do YYYY, h:mm:ss a'))
+            setDateTime(getCurrentTime())
         }, 1000)
         return () => clearInterval(getDateTime)
     }, [])
