@@ -1,6 +1,7 @@
-const colorsActionTypes = {
+export const colorsActionTypes = {
     toggle: 'color/toggle',
     replace: 'color/replace',
+    fetch: 'colors/fetch',
 }
 export const toggleColorsAction = (payload) => {
     return {
@@ -11,6 +12,13 @@ export const toggleColorsAction = (payload) => {
 export const replaceColorsAction = (payload) => {
     return {
         type: colorsActionTypes.replace,
+        payload
+    }
+}
+
+export const fetchColorsAction = (payload) => {
+    return {
+        type: colorsActionTypes.fetch,
         payload
     }
 }

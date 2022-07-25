@@ -18,6 +18,3 @@ export const unfinishedTodosSelector = state => {
     }
     return result
 }
-
-// export const unfinishedTodosSelector = state => Object.entries(state.todos).length ? 
-// Object.entries(state.todos).filter(todo => !todo.isCompleted) : {}

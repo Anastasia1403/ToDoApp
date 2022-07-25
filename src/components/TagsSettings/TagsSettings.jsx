@@ -7,16 +7,15 @@ import plus from '../../assets/svg/plus-icon.svg'
 import { tagsSelector } from '../../store/tags/selectors';
 import { TagsModalContext } from '../../App';
 import Title from '../../shared/Title/Title';
-import { deleteTagAction } from '../../store/tags/actions';
-import { toggleColorsAction } from '../../store/colors/actions';
-import { todosSelector } from '../../store/todos/selectors';
-import { editTodoAction } from '../../store/todos/actions';
+import { todosSelector } from '../../store/todos/selectors'
 import CustomModal from '../../shared/CustomModal/CustomModal';
 import { useState } from 'react';
 import TagForm from '../TagForm/TagForm';
 import { ReactComponent as DeleteIcon } from '../../assets/svg/delete-icon.svg';
 import { ReactComponent as EditIcon } from '../../assets/svg/edit-icon.svg';
 import { StyledSection } from '../../shared/StyledSection';
+import { editTask } from '../../store/todos/thunk';
+import { deleteTag } from '../../store/tags/thunk';
 
 const TagsSettings = () => {
     const tagsList = useSelector(tagsSelector);
@@ -35,15 +34,14 @@ const TagsSettings = () => {
     const openModal = (e) => {
         setIsOpen(true)
     }
-    const deleteTag = (tagId, color) => {
+    const removeTag = (tagId, colorId) => {
 		Object.keys(todos).length && Object.entries(todos).forEach(([todoId, todo]) => {
 			if (todo.tags.includes(tagId)) {
 				todo.tags.splice(todo.tags.indexOf(tagId), 1)
-				dispatch(editTodoAction({id: todoId, tags: todo.tags}))
+				dispatch(editTask({id: +todoId, tags: todo.tags}))
 			} 
         })
-        dispatch(deleteTagAction(tagId))
-        dispatch(toggleColorsAction(color)) 
+        dispatch(deleteTag(tagId))
     }
     
     const {setIsOpen} = useContext(TagsModalContext)
@@ -52,12 +50,14 @@ const TagsSettings = () => {
             <Title>Workspace Tags</Title>
             <TagsList>
             {
-                Object.entries(tagsList).map(([id, tag]) => 
-                    <TagItemWrapper>
+                Object.entries(tagsList).map(([id, tag]) => {
+                    return <TagItemWrapper>
                         <TagItem key={id} tag={tag}/>
-                        <DeleteTagButton onClick={() => deleteTag(id, tag.color)}><DeleteIcon /></DeleteTagButton>
+                        <DeleteTagButton onClick={() => removeTag(+id, tag.colorId)}><DeleteIcon /></DeleteTagButton>
                         <EditTagButton onClick={() => openEditTagModal(id)}><EditIcon/></EditTagButton>
-                    </TagItemWrapper>)
+                    </TagItemWrapper>
+                }
+                )
             }
             </TagsList>
             <Button icon={plus} type='submit' onClick={openModal}>add new tag</Button>

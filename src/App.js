@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TagForm from './components/TagForm/TagForm';
 import Router from './routes/Router';
 import CustomModal from './shared/CustomModal/CustomModal';
+import { useDispatch } from 'react-redux'
+import { fetchColors } from './store/colors/thunk'
 
 export const TagsModalContext = React.createContext({
     tagsModalIsOpen: false,
@@ -9,6 +11,12 @@ export const TagsModalContext = React.createContext({
 })
 
 const App = () => {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchColors())
+    }, [dispatch])
+
     const [tagsModalIsOpen, setIsOpen] = useState(false);
 
     const closeModal = (e) => {
@@ -18,10 +26,10 @@ const App = () => {
         <>
             <TagsModalContext.Provider value={{setIsOpen}}>
                 <Router/>
-            </TagsModalContext.Provider>
             <CustomModal closeModal={closeModal} modalIsOpen={tagsModalIsOpen} title='Create New Tag'>
                 <TagForm closeModal={closeModal}/>
             </CustomModal>
+            </TagsModalContext.Provider>
         </>
     )
 };

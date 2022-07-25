@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { tagsSelector } from '../../store/tags/selectors';
-import { deleteTodoAction, toggleTodoAction } from '../../store/todos/actions';
 import TagItem from '../../shared/TagItem/TagItem';
 import { StyledToDoItem,
         ToDoContent,
@@ -10,17 +9,20 @@ import { StyledToDoItem,
 import { LinkTaskButton, TaskButton } from '../../shared/IconButton';
 import { ReactComponent as DeleteIcon } from '../../assets/svg/delete-icon.svg';
 import { ReactComponent as ShowIcon } from '../../assets/svg/show-icon.svg';
+import { deleteTask, editTask } from '../../store/todos/thunk';
 
 const ToDoItem = ({ todo, id, isEditable }) => {
     const tagsList = useSelector(tagsSelector)
     const dispatch = useDispatch()
     function handleDeleteTodo (e) {
         e.stopPropagation();
-        dispatch(deleteTodoAction(id))
+        dispatch(deleteTask(id))
     }
     function handleToggleTodo (e) {
-        e.stopPropagation();
-        dispatch(toggleTodoAction(id))
+        if (isEditable) {
+            e.stopPropagation();
+            dispatch(editTask({ id: +id, isCompleted: !todo.isCompleted}))
+        }
     }
     return (
         <StyledToDoItem>
@@ -28,7 +30,7 @@ const ToDoItem = ({ todo, id, isEditable }) => {
             <ToDoContent
                     isCompleted={todo.isCompleted}
                     isEditable={isEditable}
-                    onClick={isEditable && handleToggleTodo}
+                    onClick={handleToggleTodo}
                 >
                     {isEditable && <input readOnly checked={todo.isCompleted} type="checkbox"/>}
                     {todo.title}
@@ -39,7 +41,7 @@ const ToDoItem = ({ todo, id, isEditable }) => {
                         size='small'
                         key={tagId}
                         tag={tagsList[tagId]}
-                    />                    
+                        />
                     )}
                 </TagMarkersList>
             </div>

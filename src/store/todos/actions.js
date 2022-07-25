@@ -1,33 +1,42 @@
-const todoActionTypes = {
-    add: 'todo/add',
-    delete: 'todo/delete',
-    toggle: 'todo/toggle',
-    edit: 'todo/edit',
+
+export const taskActionTypes = {
+    add: 'task/add',
+    delete: 'task/delete',
+    toggle: 'task/toggle',
+    edit: 'task/edit',
+    fetch: 'tasks/fetch',
 }
 
-export const addTodoAction = (payload) => {
+export const addTaskAction = (payload) => {
     return { 
-       type: todoActionTypes.add,
+       type: taskActionTypes.add,
        payload
     }
 }
 
-export const deleteTodoAction = (payload) => {
+export const deleteTaskAction = (payload) => {
     return { 
-       type: todoActionTypes.delete,
+       type: taskActionTypes.delete,
        payload
     }
 }
 
-export const toggleTodoAction = (payload) => {
+export const toggleTaskAction = (payload) => {
     return { 
-       type: todoActionTypes.toggle,
+       type: taskActionTypes.toggle,
        payload
     }
 }
-export const editTodoAction = (payload) => {
+export const editTaskAction = (payload) => {
     return { 
-       type: todoActionTypes.edit,
+       type: taskActionTypes.edit,
+       payload
+    }
+}
+
+export const fetchTasksAction = (payload) => {
+    return { 
+       type: taskActionTypes.fetch,
        payload
     }
 }

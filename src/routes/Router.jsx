@@ -7,10 +7,11 @@ import TaskItemPage from '../pages/TaskItemPage'
 import TasksPage from '../pages/TasksPage'
 
 function Router() {
+
     return (
         <Layout>
             <Routes>            
-                <Route path="/" element={<Dashboard />}/>
+                <Route exact path="/" element={<Dashboard />}/>
                 <Route exact path="/tasks" element={<TasksPage />}/>
                 <Route path="/tasks/:id" element={<TaskItemPage />}/>
                 <Route path="/settings" element={<SettingsPage />}/>

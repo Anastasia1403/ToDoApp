@@ -10,7 +10,7 @@ import Label from '../../shared/Label/Label'
 import Textarea from '../../shared/Textarea/Textarea';
 import ToggleSwitcher from '../../shared/ToggleSwitcher/ToggleSwitcher';
 import { tagsOptionsSelector } from '../../store/tags/selectors';
-import { editTodoAction } from '../../store/todos/actions';
+import { editTask } from '../../store/todos/thunk';
 import { CheckboxWrapper } from './styled';
 
 function EditTaskForm({
@@ -31,7 +31,7 @@ function EditTaskForm({
 
     const onSubmitEdit = (e) => {
         const tagsIdsArray = selectedTags.map(tag => tag.value)
-        dispatch(editTodoAction({id: currentToDoId, title, description, tags: tagsIdsArray, isCompleted}))
+        dispatch(editTask({id: currentToDoId, title, description, tags: tagsIdsArray, isCompleted}))
         onToggleEditMode()
     }
     

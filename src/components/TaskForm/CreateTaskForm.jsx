@@ -9,9 +9,9 @@ import Label from '../../shared/Label/Label'
 import TagItem from '../../shared/TagItem/TagItem';
 import Textarea from '../../shared/Textarea/Textarea';
 import { tagsSelector } from '../../store/tags/selectors';
-import { addTodoAction } from '../../store/todos/actions';
 import { TagsModalContext } from '../../App';
 import { TagsList } from './styled';
+import { addTask } from '../../store/todos/thunk';
 
 function CreateTaskForm({
     title,
@@ -26,7 +26,7 @@ function CreateTaskForm({
     const dispatch = useDispatch();
 
     function onSubmitCreate(e) {
-        dispatch(addTodoAction({title, description, tags: selectedTags}));
+        dispatch(addTask({title, description, tags: selectedTags}));
         closeModal()
     }
     const openTagsModal = (e) => {
@@ -48,7 +48,7 @@ function CreateTaskForm({
                     <TagsList>
                         {Object.entries(tagsList).map(([id, tag]) => 
                         <TagItem
-                            checked={selectedTags.includes(id)}
+                            checked={selectedTags.includes(+id)}
                             tag={tag} 
                             key={id}
                             id={id}

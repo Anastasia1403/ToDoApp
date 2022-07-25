@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import ToDoItem from "../ToDoItem/ToDoItem";
 import { StyledSection } from "../../shared/StyledSection";
-// import { useSelector } from 'react-redux';
 import Button from '../../shared/Button/Button';
 import CustomModal from '../../shared/CustomModal/CustomModal';
 import TaskForm from '../TaskForm/TaskForm';

@@ -3,9 +3,13 @@ import { routes } from '../../routes/routes'
 import Title from '../../shared/Title/Title'
 import { StyledLink, StyledSidebar } from './styled'
 
-
 function Sidebar() {
-	const [activeLinkId, setActiveLinkId] = useState(1)
+
+const findCurrentPathId = () => {
+	return routes.find(route => route.path === window.location.pathname)?.id || 2
+}
+
+	const [activeLinkId, setActiveLinkId] = useState(findCurrentPathId())
 
 	const handleClick = (e) => {
 		setActiveLinkId(Number(e.currentTarget.id))

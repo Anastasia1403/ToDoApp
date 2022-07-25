@@ -12,7 +12,7 @@ function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
     const tagsOptions = useSelector(tagsOptionsSelector)
 
     const selectedTagsOptions = currentToDo.tags && currentToDo.tags.length ? 
-        tagsOptions.filter(tagOption => currentToDo.tags.includes(tagOption.value)) : []
+        tagsOptions.filter(tagOption => currentToDo.tags.includes(Number(tagOption.value))) : []
         
     const [title, setTitle] = useState(currentToDo.title || '')
     const [description, setDescription] = useState(currentToDo.description || '')
@@ -33,9 +33,9 @@ function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
         if (currentToDoId) setSelectedTags(e)
         else {
             //if clicked tag is already in selectedTags then remove it from there otherwise add it
-            setSelectedTags(selectedTags.includes(e.target.id) ? 
-                selectedTags.filter(tag => tag !== e.target.id) :
-                [...selectedTags, e.target.id]
+            setSelectedTags(selectedTags.includes(+e.target.id) ? 
+                selectedTags.filter(tag => tag !== +e.target.id) :
+                [...selectedTags, +e.target.id]
             )
         }
     }
