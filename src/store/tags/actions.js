@@ -2,7 +2,7 @@ export const tagActionTypes = {
     add: 'tags/add',
     delete: 'tags/delete',
     edit: 'tags/edit',
-    fetch: 'tags/fetch',
+    save: 'tags/save',
 }
 
 export const addTagAction = (payload) => {
@@ -24,9 +24,9 @@ export const editTagAction = (payload) => {
     }
 }
 
-export const fetchTagsAction = (payload) => {
+export const saveTagsAction = (payload) => {
     return {
-        type: tagActionTypes.fetch,
+        type: tagActionTypes.save,
         payload
     }
 }

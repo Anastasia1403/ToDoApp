@@ -8,7 +8,7 @@ function TasksPage() {
     return (    
         <ToDoList
             taskList={taskList}
-            isEditable={true}
+            isEditable
             emptyText='What do you want to do?'
         />
     )

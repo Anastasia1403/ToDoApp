@@ -8,7 +8,7 @@ import TaskInfo from '../components/TaskInfo/TaskInfo';
 import Title from '../shared/Title/Title';
 
 function TaskItemPage() {
-	let { id } = useParams();
+	let id = Number(useParams().id);
 	
     const [isEditMode, setIsEditMode] = useState(false)
 

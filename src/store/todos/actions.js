@@ -4,7 +4,7 @@ export const taskActionTypes = {
     delete: 'task/delete',
     toggle: 'task/toggle',
     edit: 'task/edit',
-    fetch: 'tasks/fetch',
+    save: 'tasks/save',
 }
 
 export const addTaskAction = (payload) => {
@@ -34,9 +34,9 @@ export const editTaskAction = (payload) => {
     }
 }
 
-export const fetchTasksAction = (payload) => {
+export const saveTasksAction = (payload) => {
     return { 
-       type: taskActionTypes.fetch,
+       type: taskActionTypes.save,
        payload
     }
 }

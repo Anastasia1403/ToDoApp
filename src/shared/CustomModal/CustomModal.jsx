@@ -29,7 +29,7 @@ export const CloseButton = styled.button`
 
 Modal.setAppElement('#root');
 
-function CustomModal({ closeModal, modalIsOpen, children, title }) {
+function CustomModal({ closeModal, modalIsOpen, children, title, zIndex=1 }) {
   
   return (
     <Modal

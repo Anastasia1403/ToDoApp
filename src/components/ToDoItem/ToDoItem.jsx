@@ -12,6 +12,7 @@ import { ReactComponent as ShowIcon } from '../../assets/svg/show-icon.svg';
 import { deleteTask, editTask } from '../../store/todos/thunk';
 
 const ToDoItem = ({ todo, id, isEditable }) => {
+    
     const tagsList = useSelector(tagsSelector)
     const dispatch = useDispatch()
     function handleDeleteTodo (e) {
@@ -21,7 +22,7 @@ const ToDoItem = ({ todo, id, isEditable }) => {
     function handleToggleTodo (e) {
         if (isEditable) {
             e.stopPropagation();
-            dispatch(editTask({ id: +id, isCompleted: !todo.isCompleted}))
+            dispatch(editTask({ id: id, isCompleted: !todo.isCompleted}))
         }
     }
     return (

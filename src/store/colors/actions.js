@@ -1,7 +1,7 @@
 export const colorsActionTypes = {
     toggle: 'color/toggle',
     replace: 'color/replace',
-    fetch: 'colors/fetch',
+    save: 'colors/save',
 }
 export const toggleColorsAction = (payload) => {
     return {
@@ -16,9 +16,9 @@ export const replaceColorsAction = (payload) => {
     }
 }
 
-export const fetchColorsAction = (payload) => {
+export const saveColorsAction = (payload) => {
     return {
-        type: colorsActionTypes.fetch,
+        type: colorsActionTypes.save,
         payload
     }
 }

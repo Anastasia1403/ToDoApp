@@ -5,7 +5,7 @@ export const baseURL = axios.create({
 });
 
 export const api = {
-    tasks: (id) => id ? `/tasks/${id}` : '/tasks',
-    colors: (id) => id ? `/colors/${id}` :'/colors',
-    tags: (id) => id ? `/tags/${id}` :'/tags',
+    tasks: (id) => `/tasks/${id ?? ""}`,
+    colors: (id) => `/colors/${id ?? ""}`,
+    tags: (id) => `/tags/${id ?? ""}`,
 }

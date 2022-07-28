@@ -1,5 +1,4 @@
 import React from 'react'
-import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../shared/Button/Button';
 import { Form } from '../../shared/Form';
@@ -9,7 +8,6 @@ import Label from '../../shared/Label/Label'
 import TagItem from '../../shared/TagItem/TagItem';
 import Textarea from '../../shared/Textarea/Textarea';
 import { tagsSelector } from '../../store/tags/selectors';
-import { TagsModalContext } from '../../App';
 import { TagsList } from './styled';
 import { addTask } from '../../store/todos/thunk';
 
@@ -29,11 +27,6 @@ function CreateTaskForm({
         dispatch(addTask({title, description, tags: selectedTags}));
         closeModal()
     }
-    const openTagsModal = (e) => {
-        setIsOpen(true)
-    }
-    const {setIsOpen} = useContext(TagsModalContext)
-    
     return (
         <Form>
                 <InputWrapper>
@@ -48,15 +41,13 @@ function CreateTaskForm({
                     <TagsList>
                         {Object.entries(tagsList).map(([id, tag]) => 
                         <TagItem
-                            checked={selectedTags.includes(+id)}
+                            checked={selectedTags.includes(Number(id))}
                             tag={tag} 
                             key={id}
                             id={id}
                             onClick={onChangeTags}
                         >
-
                         </TagItem>)}
-                        <Button type='button' onClick={openTagsModal}>+</Button>
                     </TagsList>
                 </InputWrapper>
                 <Button type="submit" onClick={onSubmitCreate} disabled={!title}>

@@ -17,10 +17,9 @@ function TagForm({ editedTagId=null, closeModal }) {
 
     //TODO: use reselect library
     const editedTag = useSelector(tagByIdSelector(editedTagId))
-    const colorsOptionsList = useSelector(colorsOptionsSelector(Number(editedTag?.colorId)))
-
+    const colorsOptionsList = useSelector(colorsOptionsSelector(editedTag?.colorId))
     const selectedColor = editedTag?.colorId ? 
-        colorsOptionsList.find(colorOption => Number(colorOption.value) === editedTag?.colorId) : null
+        colorsOptionsList.find(colorOption => colorOption.value === editedTag?.colorId) : null
 
     const [tagTitle, setTagTitle] = useState(editedTagId ? editedTag.title : '')
     const [tagColor, setTagColor] = useState(editedTagId ? selectedColor : '')
@@ -35,10 +34,10 @@ function TagForm({ editedTagId=null, closeModal }) {
     }
     const onSubmit = (e) => {
         closeModal(e);
-        if (editedTagId) {            
-            dispatch(editTag({id: +editedTagId, title: tagTitle, colorId: +tagColor.value}))
+        if (editedTagId) {      
+            dispatch(editTag({id: editedTagId, title: tagTitle, colorId: tagColor.value}))
         } else {
-            dispatch(addTag({title: tagTitle, colorId: +tagColor.value}))
+            dispatch(addTag({title: tagTitle, colorId: tagColor.value}))
         }
     }
 

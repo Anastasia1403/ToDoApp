@@ -28,7 +28,7 @@ const ToDoList = ({taskList, isEditable, emptyText, title}) => {
                     {(Object.entries(taskList)).map(([id, todo]) => {
                         return <ToDoItem
                             isEditable={isEditable}
-                            id={id}
+                            id={Number(id)}
                             key={id}
                             todo={todo}
                             />

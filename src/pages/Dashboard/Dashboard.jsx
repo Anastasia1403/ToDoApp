@@ -20,13 +20,11 @@ function Dashboard() {
             </RowStyledSection>
                 <ToDoList
                     taskList={finishedTasks}
-                    isEditable={false}
                     emptyText='You don`t have completed tasks yet'
                     title='Completed Tasks'
                 />
                 <ToDoList
                     taskList={unfinishedTasks}
-                    isEditable={false}
                     emptyText='You don`t have uncompleted tasks'
                     title='Tasks in progress'
                 />

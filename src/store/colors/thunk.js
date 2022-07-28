@@ -1,15 +1,13 @@
-import { api, baseURL } from '../../api/api'
-import { fetchTags } from '../tags/thunk';
-import { fetchColorsAction, toggleColorsAction } from './actions'
+import { api, baseURL } from '../../api'
+import { saveColorsAction, toggleColorsAction } from './actions'
 
 export function fetchColors() {
     return dispatch => {    
-        baseURL.get(api.colors())
+        return baseURL.get(api.colors())
             .then(res => {
                 const colorsObj = {}
                 res.data.map(color => colorsObj[color.id] = color)
-            dispatch(fetchColorsAction(colorsObj));
-            dispatch(fetchTags())
+            dispatch(saveColorsAction(colorsObj));
             })
             .catch(err => {
                 console.log('error', err)

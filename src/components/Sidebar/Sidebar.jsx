@@ -3,10 +3,12 @@ import { routes } from '../../routes/routes'
 import Title from '../../shared/Title/Title'
 import { StyledLink, StyledSidebar } from './styled'
 
+const INITIAL_PATH_ID = routes[2].id
+
 function Sidebar() {
 
 const findCurrentPathId = () => {
-	return routes.find(route => route.path === window.location.pathname)?.id || 2
+	return routes.find(route => route.path === window.location.pathname)?.id || INITIAL_PATH_ID
 }
 
 	const [activeLinkId, setActiveLinkId] = useState(findCurrentPathId())
