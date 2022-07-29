@@ -1,42 +1,22 @@
-const initialState = {
-    1: {
-        title: 'work',
-        color: 1,
-    },
-    2: {
-        title: 'hobby',
-        color: 2,
-    },
-    3: {
-        title: 'family',
-        color: 3,
-    },
-    4: {
-        title: 'home',
-        color: 4,
-    }
-    
-}
+import { tagActionTypes } from "./actions";
+
+const initialState = {}
 
 const tagsReducer = (state=initialState, action) => {
-    const newState = {...state};
+    let newState = {...state};
     switch (action.type) {
-        case 'tags/add':
-            const id = Date.now();
-            newState[id] = {
-                title: action.payload.title,
-                color: Number(action.payload.colorId),
-            }
+        case tagActionTypes.save: 
+            newState = action.payload;
             return newState;
-        case 'tags/delete': {
+        case tagActionTypes.add:
+            const id = Number(action.payload.id);
+            newState[id] = action.payload
+            return newState;
+        case tagActionTypes.delete: 
             delete newState[action.payload]
             return newState;
-        }
-        case 'tags/edit':
-            newState[action.payload.id] = {
-                title: action.payload.title,
-                color: Number(action.payload.colorId),
-            }
+        case tagActionTypes.edit:
+            newState[action.payload.id] = action.payload.tag
             return newState;
         default:
             return state            

@@ -32,6 +32,5 @@ transition: 0.5s;
 }
 &:hover:after {
     transform: ${props => props.isActive ? 'translate(0)' : 'translate(-160px)'};
-    /* left: ${props => props.isActive ? '-12px' : '-160px'}; */
 }
 `

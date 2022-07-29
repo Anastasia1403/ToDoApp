@@ -33,9 +33,10 @@ function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
         if (currentToDoId) setSelectedTags(e)
         else {
             //if clicked tag is already in selectedTags then remove it from there otherwise add it
-            setSelectedTags(selectedTags.includes(e.target.id) ? 
-                selectedTags.filter(tag => tag !== e.target.id) :
-                [...selectedTags, e.target.id]
+            const tagId = Number(e.target.id)
+            setSelectedTags(selectedTags.includes(tagId) ? 
+                selectedTags.filter(tag => tag !== tagId) :
+                [...selectedTags, tagId]
             )
         }
     }

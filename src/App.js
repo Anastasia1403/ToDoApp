@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
-import TagForm from './components/TagForm/TagForm';
+import React, { useEffect } from 'react';
 import Router from './routes/Router';
-import CustomModal from './shared/CustomModal/CustomModal';
+import { useDispatch } from 'react-redux'
+import { fetchColors } from './store/colors/thunk'
+import { fetchTags } from './store/tags/thunk';
+import { fetchTasks } from './store/todos/thunk';
 
-export const TagsModalContext = React.createContext({
-    tagsModalIsOpen: false,
-    setIsOpen: () => {}
-})
 
 const App = () => {
-    const [tagsModalIsOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchColors())
+        .then(() => dispatch(fetchTags()))
+        .then(() => dispatch(fetchTasks()))
+    }, [dispatch])
 
-    const closeModal = (e) => {
-        setIsOpen(false)
-    }
     return (
-        <>
-            <TagsModalContext.Provider value={{setIsOpen}}>
-                <Router/>
-            </TagsModalContext.Provider>
-            <CustomModal closeModal={closeModal} modalIsOpen={tagsModalIsOpen} title='Create New Tag'>
-                <TagForm closeModal={closeModal}/>
-            </CustomModal>
-        </>
+        <Router/>
+
     )
 };
 

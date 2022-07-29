@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 const commonStyles = css`
     display: flex;
     flex-direction: column;
-    /* flex-grow: 1; */
+    flex-grow: 1;
     width: 100%;
     min-height: 100%;
     height: 150px;

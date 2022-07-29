@@ -7,8 +7,8 @@ import { InfoWrapper } from './styled'
 import { useDispatch, useSelector } from 'react-redux';
 import { currentTodoSelector } from '../../store/todos/selectors';
 import { tagsArrayByIdSelector } from '../../store/tags/selectors';
-import { deleteTodoAction } from '../../store/todos/actions';
 import { useNavigate } from 'react-router-dom';
+import { deleteTask } from '../../store/todos/thunk';
 
 function TaskInfo({currentToDoId, onToggleEditMode }) {
     const navigate = useNavigate()
@@ -19,7 +19,7 @@ function TaskInfo({currentToDoId, onToggleEditMode }) {
     const dispatch = useDispatch()
 
     const handleDeleteTask = (e) => {
-        dispatch(deleteTodoAction(currentToDoId))
+        dispatch(deleteTask(currentToDoId))
         navigate('/tasks');
     }
 

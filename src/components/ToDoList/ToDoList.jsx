@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import ToDoItem from "../ToDoItem/ToDoItem";
 import { StyledSection } from "../../shared/StyledSection";
-// import { useSelector } from 'react-redux';
 import Button from '../../shared/Button/Button';
 import CustomModal from '../../shared/CustomModal/CustomModal';
 import TaskForm from '../TaskForm/TaskForm';
@@ -29,7 +28,7 @@ const ToDoList = ({taskList, isEditable, emptyText, title}) => {
                     {(Object.entries(taskList)).map(([id, todo]) => {
                         return <ToDoItem
                             isEditable={isEditable}
-                            id={id}
+                            id={Number(id)}
                             key={id}
                             todo={todo}
                             />

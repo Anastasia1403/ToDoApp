@@ -1,27 +1,25 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Button from '../../shared/Button/Button'
-import { addTagAction, editTagAction } from '../../store/tags/actions'
 import Input from '../../shared/Input/Input'
 import { selectCustomStyles } from './styled'
 import { colorsOptionsSelector } from '../../store/colors/selectors'
-import { useSelector } from 'react-redux';
-import { replaceColorsAction, toggleColorsAction } from '../../store/colors/actions'
+import { useSelector } from 'react-redux'
 import Select from 'react-select'
 import Label from '../../shared/Label/Label'
 import { Form } from '../../shared/Form'
 import { InputWrapper } from '../../shared/InputWrapper'
 import { tagByIdSelector } from '../../store/tags/selectors'
+import { addTag, editTag } from '../../store/tags/thunk'
 
 
 function TagForm({ editedTagId=null, closeModal }) {
 
     //TODO: use reselect library
     const editedTag = useSelector(tagByIdSelector(editedTagId))
-    const colorsOptionsList = useSelector(colorsOptionsSelector(Number(editedTag?.color)))
-
-    const selectedColor = editedTag?.color ? 
-        colorsOptionsList.find(colorOption => Number(colorOption.value) === editedTag?.color) : null
+    const colorsOptionsList = useSelector(colorsOptionsSelector(editedTag?.colorId))
+    const selectedColor = editedTag?.colorId ? 
+        colorsOptionsList.find(colorOption => colorOption.value === editedTag?.colorId) : null
 
     const [tagTitle, setTagTitle] = useState(editedTagId ? editedTag.title : '')
     const [tagColor, setTagColor] = useState(editedTagId ? selectedColor : '')
@@ -36,14 +34,11 @@ function TagForm({ editedTagId=null, closeModal }) {
     }
     const onSubmit = (e) => {
         closeModal(e);
-        if (editedTagId) {            
-            dispatch(editTagAction({id: editedTagId, title: tagTitle, colorId: tagColor.value}))
-            dispatch(replaceColorsAction({prevColor: editedTag.color, newColor: tagColor.value}))
+        if (editedTagId) {      
+            dispatch(editTag({id: editedTagId, title: tagTitle, colorId: tagColor.value}))
         } else {
-            dispatch(addTagAction({title: tagTitle, colorId: tagColor.value}));
-            dispatch(toggleColorsAction(tagColor.value))
+            dispatch(addTag({title: tagTitle, colorId: tagColor.value}))
         }
-        
     }
 
     return (
