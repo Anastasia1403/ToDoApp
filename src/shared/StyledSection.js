@@ -6,7 +6,7 @@ const commonStyles = css`
     flex-grow: 1;
     width: 100%;
     min-height: 100%;
-    height: 150px;
+    height: 200px;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -19,5 +19,5 @@ export const StyledSection = styled.section`
 
 export const RowStyledSection = styled.section`
     ${commonStyles};
-    grid-column: 1 / 3;
+    grid-column: span 2;
 `

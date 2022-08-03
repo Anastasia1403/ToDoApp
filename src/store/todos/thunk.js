@@ -15,8 +15,8 @@ export function fetchTasks() {
         };
 }
 
-export function addTask({title, description, tags}) {
-    const newTask = {title, description, tags, isCompleted: false}
+export function addTask({title, description, tags, deadline}) {
+    const newTask = {title, description, tags, deadline, isCompleted: false}
     return (dispatch, getState) => {
         baseURL.post(api.tasks(), newTask)
             .then(res => {
@@ -47,6 +47,7 @@ export function editTask(task) {
             ...(task.title && {title: task.title}),
             ...(task.description && {description: task.description}),
             ...(task.hasOwnProperty('isCompleted') && {isCompleted: task.isCompleted }),
+            ...(task.deadline && {deadline: task.deadline}),
             ...(task.tags && {tags: task.tags}),
         }
         baseURL.put(api.tasks(task.id), editedTask)

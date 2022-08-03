@@ -1,4 +1,6 @@
+import moment from 'moment';
 import React from 'react';
+import ReactDatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import Button from '../../shared/Button/Button';
@@ -21,6 +23,8 @@ function EditTaskForm({
     onChangeDescription,
     selectedTags,
     onChangeTags,
+    deadline,
+    onChangeDeadline,
     isCompleted,
     onChangeStatus,
     onToggleEditMode
@@ -31,11 +35,10 @@ function EditTaskForm({
 
     const onSubmitEdit = (e) => {
         const tagsIdsArray = selectedTags.map(tag => tag.value)
-        dispatch(editTask({id: currentToDoId, title, description, tags: tagsIdsArray, isCompleted}))
+        dispatch(editTask({id: currentToDoId, title, description, tags: tagsIdsArray, isCompleted, deadline: moment(deadline).toISOString()}))
         onToggleEditMode()
     }
     
-
     return (
         <Form>
                 <InputWrapper>
@@ -46,18 +49,31 @@ function EditTaskForm({
                 <Label htmlFor="description">Description</Label>
                     <Textarea placeholder='Add note' id="description" value={description} onChange={onChangeDescription}/>
                 </InputWrapper>
-                <InputWrapper>
-                
-                            <Label htmlFor="tagSelect">Tags</Label>
-                            <Select
-                            id='tagSelect'
-                            placeholder='Select tags'
-                            isMulti
-                            options={tagsOptions}
-                            value={selectedTags}
-                            onChange={onChangeTags}
-                            />
 
+                <InputWrapper>
+                <Label htmlFor="deadline">Deadline</Label>
+                    <ReactDatePicker
+                        dateFormat="MMM do yyyy"
+                        selected={deadline}
+                        onChange={onChangeDeadline}
+                        minDate={new Date()}
+                        showDisabledMonthNavigation
+                        shouldCloseOnSelect={false}
+                        placeholderText="Pick deadline"
+                        customInput={<Input id='deadline'/>}
+                    />
+                </InputWrapper>
+
+                <InputWrapper>                
+                    <Label htmlFor="tagSelect">Tags</Label>
+                    <Select
+                    id='tagSelect'
+                    placeholder='Select tags'
+                    isMulti
+                    options={tagsOptions}
+                    value={selectedTags}
+                    onChange={onChangeTags}
+                    />
                 </InputWrapper>
 
                     <CheckboxWrapper>

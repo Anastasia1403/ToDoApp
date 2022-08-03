@@ -9,6 +9,7 @@ import { currentTodoSelector } from '../../store/todos/selectors';
 import { tagsArrayByIdSelector } from '../../store/tags/selectors';
 import { useNavigate } from 'react-router-dom';
 import { deleteTask } from '../../store/todos/thunk';
+import moment from 'moment';
 
 function TaskInfo({currentToDoId, onToggleEditMode }) {
     const navigate = useNavigate()
@@ -36,6 +37,9 @@ function TaskInfo({currentToDoId, onToggleEditMode }) {
                 <TagsList>{currentTags.map(tag =>
                     <TagItem key={tag.title} size='small' tag={tag}/>)}
                 </TagsList>
+
+                <h5>Deadline</h5>
+                <div>{moment(currentToDo.deadline).format('MMM Do yyyy')}</div> 
 
                 <h5>Status</h5>
                 <div>{currentToDo.isCompleted ? 'DONE' : 'IN PROGRESS'}</div>   
