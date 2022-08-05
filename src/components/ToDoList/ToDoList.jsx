@@ -4,7 +4,7 @@ import { StyledSection } from "../../shared/StyledSection";
 import Button from '../../shared/Button/Button';
 import CustomModal from '../../shared/CustomModal/CustomModal';
 import TaskForm from '../TaskForm/TaskForm';
-import { EmptyBlock, StyledList } from './styled';
+import { EmptyBlock, StyledList, TotalTasks } from './styled';
 import Title from '../../shared/Title/Title';
 
 const ToDoList = ({taskList, isEditable, emptyText, title}) => {
@@ -24,6 +24,8 @@ const ToDoList = ({taskList, isEditable, emptyText, title}) => {
         <StyledSection>
             <Title>{title}</Title>
             { shouldShowList ?
+            <>
+                <TotalTasks>Total: {Object.keys(taskList).length} tasks</TotalTasks>
                 <StyledList>
                     {(Object.entries(taskList)).map(([id, todo]) => {
                         return <ToDoItem
@@ -34,6 +36,7 @@ const ToDoList = ({taskList, isEditable, emptyText, title}) => {
                             />
                     })}
                 </StyledList>
+            </>            
             : <EmptyBlock>{emptyText}</EmptyBlock> }
             {
             isEditable && 

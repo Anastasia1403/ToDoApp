@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { api, baseURL } from '../../api'
 import { addTaskAction, deleteTaskAction, editTaskAction, saveTasksAction } from './actions'
 
@@ -15,8 +16,8 @@ export function fetchTasks() {
         };
 }
 
-export function addTask({title, description, tags}) {
-    const newTask = {title, description, tags, isCompleted: false}
+export function addTask({title, description, tags, deadline}) {
+    const newTask = {title, description, tags, deadline, isCompleted: false, createdAt: moment(new Date()).format()}
     return (dispatch, getState) => {
         baseURL.post(api.tasks(), newTask)
             .then(res => {
@@ -47,6 +48,7 @@ export function editTask(task) {
             ...(task.title && {title: task.title}),
             ...(task.description && {description: task.description}),
             ...(task.hasOwnProperty('isCompleted') && {isCompleted: task.isCompleted }),
+            ...(task.deadline && {deadline: task.deadline}),
             ...(task.tags && {tags: task.tags}),
         }
         baseURL.put(api.tasks(task.id), editedTask)

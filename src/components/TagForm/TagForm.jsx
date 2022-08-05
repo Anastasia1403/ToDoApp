@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Button from '../../shared/Button/Button'
 import Input from '../../shared/Input/Input'
-import { selectCustomStyles } from './styled'
 import { colorsOptionsSelector } from '../../store/colors/selectors'
 import { useSelector } from 'react-redux'
 import Select from 'react-select'
@@ -11,6 +10,7 @@ import { Form } from '../../shared/Form'
 import { InputWrapper } from '../../shared/InputWrapper'
 import { tagByIdSelector } from '../../store/tags/selectors'
 import { addTag, editTag } from '../../store/tags/thunk'
+import { selectCustomStyles } from '../../shared/Select'
 
 
 function TagForm({ editedTagId=null, closeModal }) {

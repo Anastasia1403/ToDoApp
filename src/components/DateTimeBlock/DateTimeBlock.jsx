@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getCurrentTime } from '../../helpers/getCurrentTime'
+import { getCurrentTime } from '../../helpers/date-time-func'
 
 function DateTimeBlock() {
     

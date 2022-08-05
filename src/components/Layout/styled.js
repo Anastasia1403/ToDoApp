@@ -7,11 +7,11 @@ export const MainBlock = styled.main`
     padding: 60px;
     background: url(${backgroundUrl}) no-repeat;
     background-size: cover;
+    overflow-y: auto;
     `
 
 export const StyledLayout = styled.div`
     display: grid;
     grid-template-columns: 200px 1fr;
     grid-template-rows: 60px 1fr;
-    min-height: 100vh;
-    height: 100%;`
+    height: 100vh;`

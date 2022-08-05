@@ -6,6 +6,7 @@ import { currentTodoSelector } from '../../store/todos/selectors';
 
 import EditTaskForm from './EditTaskForm';
 import CreateTaskForm from './CreateTaskForm';
+import moment from 'moment';
 
 function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
     const currentToDo = useSelector(currentTodoSelector(currentToDoId))
@@ -18,6 +19,7 @@ function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
     const [description, setDescription] = useState(currentToDo.description || '')
     const [selectedTags, setSelectedTags] = useState(selectedTagsOptions || []);
     const [isCompleted, setIsCompleted] = useState(currentToDo.isCompleted)
+    const [deadline, setDeadline] = useState(moment(currentToDo.deadline).toDate() || new Date())
 
     const onChangeTitle = (e) => {
         setTitle(e.target.value)
@@ -40,6 +42,9 @@ function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
             )
         }
     }
+    const onChangeDeadline = (date) => {
+        setDeadline(moment(date).toDate())
+    }
     
     return currentToDoId ? 
         <EditTaskForm
@@ -52,6 +57,8 @@ function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
             onChangeTags={onChangeTags}
             isCompleted={isCompleted}
             onChangeStatus={onChangeStatus}
+            deadline={deadline}
+            onChangeDeadline={onChangeDeadline}
             onToggleEditMode={onToggleEditMode}
         /> : 
         <CreateTaskForm
@@ -61,6 +68,8 @@ function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
             onChangeDescription={onChangeDescription}
             selectedTags={selectedTags}
             onChangeTags={onChangeTags}
+            deadline={deadline}
+            onChangeDeadline={onChangeDeadline}
             closeModal={closeModal}
         />
 }
