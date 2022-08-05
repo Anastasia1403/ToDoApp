@@ -1,18 +1,8 @@
 import React from 'react'
 import { BarChart, Bar, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { calcDaysDifference, formatDate } from '../../helpers/date-time-func';
-import { StyledTooltip } from './styled';
+import { calcDaysDifference } from '../../helpers/date-time-func';
+import ChartTooltip from '../ChartTooltip/ChartTooltip';
 
-function CustomTooltip({ active, payload }) {
-    if (active && payload && payload.length) {
-        const taskInfo = payload[0].payload
-        return (<StyledTooltip>
-                <p>Task: {taskInfo.title}</p>
-                <p>Days in progress: {taskInfo.time}</p>
-                <p>Deadline: {formatDate(taskInfo.deadline)}</p>
-            </StyledTooltip>)
-    }
-}
 
 function Chart({ taskList }) {
     const getDataForChart = () => Object.values(taskList).map(task => {
@@ -28,7 +18,7 @@ function Chart({ taskList }) {
                 data={getDataForChart()}
             >
                 <YAxis />
-                <Tooltip content={<CustomTooltip />}/>
+                <Tooltip content={<ChartTooltip />}/>
                 <Bar dataKey="time" fill="#712c65" barSize={50}/>
             </BarChart>
         </ResponsiveContainer>

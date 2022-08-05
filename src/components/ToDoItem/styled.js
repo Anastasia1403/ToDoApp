@@ -38,6 +38,7 @@ export const ToDoText = styled.div`
 export const TagMarkersList = styled.ul`
         display: flex;
         gap: 8px;
+        flex-wrap: wrap;
         flex-grow: 1;`
 
 export const IconsWrapper = styled.div`

@@ -43,7 +43,7 @@ function TaskForm({currentToDoId=null, closeModal, onToggleEditMode}) {
         }
     }
     const onChangeDeadline = (date) => {
-        setDeadline(moment(date).hours(12).minutes(0).seconds(0).toDate())
+        setDeadline(moment(date).toDate())
     }
     
     return currentToDoId ? 

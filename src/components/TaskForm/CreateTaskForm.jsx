@@ -12,6 +12,7 @@ import { TagsList } from './styled';
 import { addTask } from '../../store/todos/thunk';
 import ReactDatePicker from 'react-datepicker';
 import "./react-datepicker.css";
+import moment from 'moment';
 
 function CreateTaskForm({
     title,
@@ -28,7 +29,7 @@ function CreateTaskForm({
     const dispatch = useDispatch();
 
     function onSubmitCreate(e) {
-        dispatch(addTask({title, description, tags: selectedTags, deadline}));
+        dispatch(addTask({title, description, tags: selectedTags, deadline: moment(deadline).format()}));
         closeModal()
     }
     return (

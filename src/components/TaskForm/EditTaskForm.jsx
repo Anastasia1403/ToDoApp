@@ -9,6 +9,7 @@ import { Form } from '../../shared/Form';
 import Input from '../../shared/Input/Input'
 import { InputWrapper } from '../../shared/InputWrapper'
 import Label from '../../shared/Label/Label'
+import { selectCustomStyles } from '../../shared/Select';
 import Textarea from '../../shared/Textarea/Textarea';
 import ToggleSwitcher from '../../shared/ToggleSwitcher/ToggleSwitcher';
 import { tagsOptionsSelector } from '../../store/tags/selectors';
@@ -35,7 +36,7 @@ function EditTaskForm({
 
     const onSubmitEdit = (e) => {
         const tagsIdsArray = selectedTags.map(tag => tag.value)
-        dispatch(editTask({id: currentToDoId, title, description, tags: tagsIdsArray, isCompleted, deadline: moment(deadline).toISOString()}))
+        dispatch(editTask({id: currentToDoId, title, description, tags: tagsIdsArray, isCompleted, deadline: moment(deadline).format()}))
         onToggleEditMode()
     }
     
@@ -70,6 +71,7 @@ function EditTaskForm({
                     id='tagSelect'
                     placeholder='Select tags'
                     isMulti
+                    styles={selectCustomStyles}
                     options={tagsOptions}
                     value={selectedTags}
                     onChange={onChangeTags}
