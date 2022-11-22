@@ -30,7 +30,6 @@ function EditTaskForm({
     onChangeStatus,
     onToggleEditMode
     }) {
-    
     const tagsOptions = useSelector(tagsOptionsSelector);
     const dispatch = useDispatch();
 
@@ -44,11 +43,11 @@ function EditTaskForm({
         <Form>
                 <InputWrapper>
                 <Label htmlFor="title">Task</Label>
-                    <Input type='text' id="title" value={title} onChange={onChangeTitle} placeholder='Add new task' autoFocus/>
+                    <Input type='text' id="title" value={title} onChange={onChangeTitle} placeholder='Correct task' autoFocus/>
                 </InputWrapper>
                 <InputWrapper>
                 <Label htmlFor="description">Description</Label>
-                    <Textarea placeholder='Add note' id="description" value={description} onChange={onChangeDescription}/>
+                    <Textarea placeholder='Correct note' id="description" value={description} onChange={onChangeDescription}/>
                 </InputWrapper>
 
                 <InputWrapper>
@@ -66,7 +65,7 @@ function EditTaskForm({
                 </InputWrapper>
 
                 <InputWrapper>                
-                    <Label htmlFor="tagSelect">Tags</Label>
+                    <Label forId="tagSelect">Tags</Label>
                     <Select
                     id='tagSelect'
                     placeholder='Select tags'
@@ -75,6 +74,7 @@ function EditTaskForm({
                     options={tagsOptions}
                     value={selectedTags}
                     onChange={onChangeTags}
+                    aria-label="tagSelect"
                     />
                 </InputWrapper>
 

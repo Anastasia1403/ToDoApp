@@ -12,3 +12,10 @@ export const testTask = {
     isCompleted: false,
 }
 export const colors = ['#465895', '#a789a5', '#ce8fd7', '#84a0ec', '#a81b69', '#fd256e']
+
+export const DEADLINE_COLORS = {
+    urgently: '#f25074',
+    medium: '#f8ba3f',
+    minor: '#69b51d'
+
+}

@@ -27,9 +27,11 @@ export const CloseButton = styled.button`
     cursor: pointer;
     `
 
-Modal.setAppElement('#root');
+const modalRoot = document.createElement('div')
+modalRoot.setAttribute('id', 'modal-root')
+document.body.appendChild(modalRoot)
 
-function CustomModal({ closeModal, modalIsOpen, children, title, zIndex=1 }) {
+function CustomModal({ closeModal, modalIsOpen, children, title }) {
   
   return (
     <Modal

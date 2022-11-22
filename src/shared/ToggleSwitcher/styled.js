@@ -28,12 +28,12 @@ export const Inner = styled.span`
         
     }
     &:before {        
-        content: "DONE";
+        content: attr(data-done);
         background-color: #6f44ae;
         padding-right: 30px;
     }
     &:after {
-        content: "IN PROGRESS";
+        content: attr(data-in-progress);
         padding-left: 20px;
         background-color: #a3a2b5;
     }

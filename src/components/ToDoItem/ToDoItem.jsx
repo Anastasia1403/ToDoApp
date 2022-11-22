@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { tagsSelector } from '../../store/tags/selectors';
+import { tagsArrayByIdSelector } from '../../store/tags/selectors';
 import TagItem from '../../shared/TagItem/TagItem';
 import { StyledToDoItem,
         ToDoContent,
@@ -16,9 +16,8 @@ import { deleteTask, editTask } from '../../store/todos/thunk';
 import { calcDaysDifference, formatDate, getDeadlineColor } from '../../helpers/date-time-func';
 
 
-const ToDoItem = ({ todo, id, isEditable }) => {
-    
-    const tagsList = useSelector(tagsSelector)
+const ToDoItem = ({ todo, id, isEditable }) => { 
+    const tagsList = useSelector(tagsArrayByIdSelector(todo.tags))
     const dispatch = useDispatch()
 
     const daysToDeadline = calcDaysDifference(todo.deadline, new Date())
@@ -46,11 +45,11 @@ const ToDoItem = ({ todo, id, isEditable }) => {
                     {todo.title}
                 </ToDoText>
                 <TagMarkersList>
-                    {Boolean(todo.tags.length) && todo.tags.map(tagId =>
+                    {Boolean(tagsList.length) && tagsList.map(tag =>
                         <TagItem 
                             size='small'
-                            key={tagId}
-                            tag={tagsList[tagId]}
+                            key={tag.id}
+                            tag={tag}
                             />
                         )}
                 </TagMarkersList>

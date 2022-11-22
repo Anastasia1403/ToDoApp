@@ -1,4 +1,5 @@
 import moment from "moment";
+import { DEADLINE_COLORS } from "./constants"; 
 
 export const getCurrentTime = () => moment().format('MMMM Do YYYY, h:mm:ss a')
 
@@ -9,7 +10,7 @@ const setEqualTime = (datetime) => moment(datetime).hours(12).minutes(0).seconds
 export const calcDaysDifference = (date1, date2) => moment(setEqualTime(date1)).diff(setEqualTime(date2), 'days')
 
 export const getDeadlineColor = (numOfDays) => {
-    if (numOfDays > 5) return '#69b51d';
-        if (numOfDays <= 5 && numOfDays >= 2) return '#f8ba3f'
-        else return '#f25074'
+    if (numOfDays > 5) return DEADLINE_COLORS.minor;
+    if (numOfDays <= 5 && numOfDays >= 2) return DEADLINE_COLORS.medium
+    else return DEADLINE_COLORS.urgently
 }

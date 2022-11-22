@@ -5,8 +5,12 @@ function ToggleSwitcher({ onChange, isChecked}) {
     return (
         <ToggleContainer>
             <Checkbox type='checkbox' name="toggleSwitch" id="toggleSwitch" onChange={onChange} checked={isChecked}/>
-            <CheckboxLabel htmlFor="toggleSwitch" checked={isChecked}>
-                <Inner></Inner>
+            <CheckboxLabel
+                data-testid="toggleSwitcherLabel"
+                htmlFor="toggleSwitch"
+                checked={isChecked}
+            >
+                <Inner data-done='DONE' data-in-progress='IN PROGRESS'></Inner>
                 <Switch></Switch>
             </CheckboxLabel>
         </ToggleContainer>
