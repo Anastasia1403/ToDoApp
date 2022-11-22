@@ -8,6 +8,7 @@ import { EmptyBlock, StyledList, TotalTasks } from './styled';
 import Title from '../../shared/Title/Title';
 
 const ToDoList = ({taskList, isEditable, emptyText, title}) => {
+    console.log(taskList)
 
     const [modalIsOpen, setIsOpen] = useState(false)
     const shouldShowList = Boolean(Object.keys(taskList).length)

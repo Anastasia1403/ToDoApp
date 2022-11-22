@@ -8,9 +8,9 @@ const StyledLabel = styled.label`
     `
 
 
-function Label({children, required, }) {
+function Label({children, required, forId='' }) {
   return (
-    <StyledLabel>
+    <StyledLabel htmlFor={forId}>
         {children}{required ? '*' : ''}
     </StyledLabel>
   )
